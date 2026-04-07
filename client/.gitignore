@@ -24,6 +24,3 @@ dist-ssr
 *.sw?
 
 /src/generated/prisma
-
-# Ignorar datasets pesados
-data/*.csv
