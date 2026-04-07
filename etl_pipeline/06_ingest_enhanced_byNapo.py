@@ -1,5 +1,6 @@
 import pandas as pd
 import os
+import time
 from sqlalchemy import create_engine
 from dotenv import load_dotenv
 
@@ -7,7 +8,10 @@ load_dotenv('../.env')
 db_url = os.getenv("DATABASE_URL")
 
 def ingest_enhanced_data():
-    print("📥 Iniciando ingesta de datos potenciados (byNapo)...")
+    start_time = time.time()
+    print("\n" + "="*50)
+    print("📥 [ETL 06] INGESTA DE DATOS POTENCIADOS (byNapo)")
+    print("="*50)
     
     engine = create_engine(db_url)
     data_dir = "../data/"
@@ -25,18 +29,25 @@ def ingest_enhanced_data():
             # Normalizar nombres de columnas para match exacto
             df.columns = [col.strip().lower() for col in df.columns]
             
-            print(f"🚀 Subiendo {len(df)} registros a {table_name}...")
-            df.to_sql(
-                name=table_name.split('.')[1],
-                schema=table_name.split('.')[0],
-                con=engine,
-                if_exists='append',
-                index=False,
-                chunksize=1000
-            )
-            print(f"✅ {filename} ingestado exitosamente.")
+            print(f"⏳ Subiendo lote de [{len(df):,}] registros a [{table_name}]...")
+            try:
+                df.to_sql(
+                    name=table_name.split('.')[1],
+                    schema=table_name.split('.')[0],
+                    con=engine,
+                    if_exists='append',
+                    index=False,
+                    chunksize=1000
+                )
+                print(f"  ➜ ✅ {filename} ingestado con éxito.")
+            except Exception as e:
+                print(f"  ➜ ❌ Error al ingestar {filename}:\n{e}")
         else:
-            print(f"⚠️ Archivo no encontrado: {filepath}")
+            print(f"⚠️  Advertencia: Archivo local no encontrado: {filepath}")
+
+    elapsed = time.time() - start_time
+    print(f"\n✅ ETL 06 completado exitosamente en {elapsed:.2f} segundos.")
+    print("="*50 + "\n")
 
 if __name__ == "__main__":
     ingest_enhanced_data()

@@ -5,6 +5,7 @@
 # ==========================================
 
 import os
+import time
 from sqlalchemy import create_engine, text
 from dotenv import load_dotenv
 
@@ -20,11 +21,16 @@ def setup_business_enhanced():
     - Vistas materializadas para KPIs de alto rendimiento
     - Permisos para acceso anon (Supabase)
     """
-    print("🏗️ Creando Capa Business (Vistas byNapo)...")
+    start_time = time.time()
+    print("\n" + "="*50)
+    print("🏗️  [ETL 07] CONSTRUYENDO CAPA BUSINESS (byNapo)")
+    print("="*50)
     
     if not db_url:
         print("❌ Error: DATABASE_URL no encontrada en .env")
         return
+        
+    print("⏳ Ejecutando macro-script DDL sobre capa 'business'...")
     
     engine = create_engine(db_url)
     
@@ -33,9 +39,14 @@ def setup_business_enhanced():
     # ==========================================
     sql_queries = """
     -- ==========================================
+    -- 0. LIMPIEZA TOTAL (CLEAN SLATE)
+    -- ==========================================
+    DROP SCHEMA IF EXISTS business CASCADE;
+    
+    -- ==========================================
     -- 1. ESQUEMA Y VISTA MAESTRA TIPADA
     -- ==========================================
-    CREATE SCHEMA IF NOT EXISTS business;
+    CREATE SCHEMA business;
 
     -- Vista maestra: Transforma TEXT → tipos nativos + campos calculados
     CREATE OR REPLACE VIEW business.v_employee_full_byNapo AS
@@ -50,10 +61,8 @@ def setup_business_enhanced():
         gender,
         nationality_iso3,
         country_iso3,
-        birth_date::DATE as birth_date,
-        home_address,
-        home_lat::NUMERIC(10,6) as home_lat,
-        home_lon::NUMERIC(10,6) as home_lon,
+        NULLIF(home_lat, '')::NUMERIC(10,6) as home_lat,
+        NULLIF(home_lon, '')::NUMERIC(10,6) as home_lon,
         
         -- Ubicación laboral
         work_center_id,
@@ -64,58 +73,55 @@ def setup_business_enhanced():
         job_role,
         job_level_1,
         job_level_2,
-        job_family,
         
         -- Estado laboral
         employment_status,
-        hire_date::DATE as hire_date,
-        termination_date::DATE as termination_date,
+        NULLIF(hire_date, '')::DATE as hire_date,
+        NULLIF(termination_date, '')::DATE as termination_date,
         termination_reason_legal,
-        termination_reason_detail,
         turnover_classification_company,
         
         -- Compensación (moneda local + USD)
-        monthly_salary_local::NUMERIC(12,2) as monthly_salary_local,
+        NULLIF(monthly_salary_local, '')::NUMERIC(12,2) as monthly_salary_local,
         currency_iso3,
-        fx_rate_to_usd::NUMERIC(10,6) as fx_rate_to_usd,
-        monthly_salary_usd::NUMERIC(12,2) as monthly_salary_usd,
+        NULLIF(fx_rate_to_usd, '')::NUMERIC(10,6) as fx_rate_to_usd,
+        NULLIF(monthly_salary_usd, '')::NUMERIC(12,2) as monthly_salary_usd,
         
         -- Jerarquía (con NULLIF para manejar strings vacíos)
         NULLIF(manager_employee_id, '')::INTEGER as manager_employee_id,
-        NULLIF(dotted_line_manager_employee_id, '')::INTEGER as dotted_line_manager_employee_id,
+        NULLIF(dotted_line_manager_id, '')::INTEGER as dotted_line_manager_id,
         
         -- Educación y familia
         education_level,
         education_status,
         marital_status,
-        dependents_count::INTEGER as dependents_count,
+        NULLIF(dependents_count, '')::INTEGER as dependents_count,
         
         -- Flags de cambio (cast a BOOLEAN)
-        (salary_change_flag = '1' OR salary_change_flag = 'true') as salary_change_flag,
+        (salary_change_flag = '1' OR lower(salary_change_flag) = 'true') as salary_change_flag,
         salary_change_reason_code,
-        (job_change_flag = '1' OR job_change_flag = 'true') as job_change_flag,
-        job_change_reason_code,
+        (job_change_flag = '1' OR lower(job_change_flag) = 'true') as job_change_flag,
         
         -- Calidad de salida
-        (exit_interview_completed = '1' OR exit_interview_completed = 'true') as exit_interview_completed,
-        (regrettable_loss_flag = '1' OR regrettable_loss_flag = 'true') as regrettable_loss_flag,
+        (exit_interview_completed = '1' OR lower(exit_interview_completed) = 'true') as exit_interview_completed,
+        (regrettable_loss_flag = '1' OR lower(regrettable_loss_flag) = 'true') as regrettable_loss_flag,
         
         -- Campos calculados derivados
         -- Antigüedad en meses al cierre del snapshot
         CASE 
-            WHEN termination_date::DATE IS NOT NULL THEN 
-                EXTRACT(YEAR FROM AGE(termination_date::DATE, hire_date::DATE)) * 12 + 
-                EXTRACT(MONTH FROM AGE(termination_date::DATE, hire_date::DATE))
+            WHEN NULLIF(termination_date, '') IS NOT NULL THEN 
+                EXTRACT(YEAR FROM AGE(NULLIF(termination_date, '')::DATE, NULLIF(hire_date, '')::DATE)) * 12 + 
+                EXTRACT(MONTH FROM AGE(NULLIF(termination_date, '')::DATE, NULLIF(hire_date, '')::DATE))
             ELSE 
-                EXTRACT(YEAR FROM AGE(snapshot_date::DATE, hire_date::DATE)) * 12 + 
-                EXTRACT(MONTH FROM AGE(snapshot_date::DATE, hire_date::DATE))
+                EXTRACT(YEAR FROM AGE(snapshot_date::DATE, NULLIF(hire_date, '')::DATE)) * 12 + 
+                EXTRACT(MONTH FROM AGE(snapshot_date::DATE, NULLIF(hire_date, '')::DATE))
         END as tenure_months,
         
         -- Flag de empleado activo en esa fecha
         CASE 
             WHEN employment_status = 'Active' THEN TRUE
-            WHEN termination_date::DATE IS NULL THEN TRUE
-            WHEN termination_date::DATE >= snapshot_date::DATE THEN TRUE
+            WHEN NULLIF(termination_date, '') IS NULL THEN TRUE
+            WHEN NULLIF(termination_date, '')::DATE >= snapshot_date::DATE THEN TRUE
             ELSE FALSE
         END as is_active_at_snapshot,
         
@@ -253,9 +259,9 @@ def setup_business_enhanced():
         NOW() as generated_at
     FROM monthly_stats;
 
-    -- Índice para acelerar consultas por fecha
-    CREATE INDEX IF NOT EXISTS idx_mv_kpis_snapshot 
-    ON business.mv_monthly_kpis_byNapo (snapshot_date, country_iso3);
+    -- Índice único (Requisito para REFRESH CONCURRENTLY)
+    CREATE UNIQUE INDEX IF NOT EXISTS idx_mv_kpis_snapshot_unique 
+    ON business.mv_monthly_kpis_byNapo (snapshot_date, country_iso3, department_name, job_level_1);
 
 
     -- ==========================================
@@ -292,42 +298,13 @@ def setup_business_enhanced():
         e.currency_iso3,
         e.monthly_salary_usd,
         e.fx_rate_to_usd,
-        e.is_active_at_snapshot,
+        e.is_active_at_snapshot
         
-        -- Compa-Ratio estimado (vs midpoint de mercado simulado)
-        -- Nota: En producción, join con ibm_hr_compensation_matrix_byNapo
-        ROUND(
-            CASE 
-                WHEN e.monthly_salary_usd > 0 AND cm.grade_mid_usd > 0 THEN 
-                    e.monthly_salary_usd / cm.grade_mid_usd 
-                ELSE NULL 
-            END, 3
-        ) as compa_ratio,
-        
-        -- Posición en banda salarial (0-100%)
-        ROUND(
-            CASE 
-                WHEN cm.grade_max_usd > cm.grade_min_usd THEN 
-                    ((e.monthly_salary_usd - cm.grade_min_usd) / 
-                     (cm.grade_max_usd - cm.grade_min_usd)) * 100 
-                ELSE NULL 
-            END, 1
-        ) as band_penetration_pct,
-        
-        -- Flag de outlier salarial
-        CASE 
-            WHEN e.monthly_salary_usd < cm.grade_min_usd * 0.8 THEN 'Below_Minimum'
-            WHEN e.monthly_salary_usd > cm.grade_max_usd * 1.2 THEN 'Above_Maximum'
-            WHEN e.monthly_salary_usd < cm.grade_mid_usd * 0.9 THEN 'Below_Market'
-            WHEN e.monthly_salary_usd > cm.grade_mid_usd * 1.1 THEN 'Above_Market'
-            ELSE 'In_Range'
-        END as salary_position_flag
+        -- NOTA: compa_ratio, band_penetration_pct y salary_position_flag
+        -- se han omitido temporalmente ya que raw.ibm_hr_compensation_matrix_byNapo
+        -- no existe en el flujo actual.
         
     FROM business.v_employee_full_byNapo e
-    LEFT JOIN raw.ibm_hr_compensation_matrix_byNapo cm 
-        ON e.job_level_1 = cm.job_level_1 
-        AND e.country_iso3 = cm.country_iso3
-        AND e.snapshot_date BETWEEN cm.effective_date AND cm.expiration_date
     WHERE e.is_active_at_snapshot = TRUE;
 
 
@@ -355,9 +332,9 @@ def setup_business_enhanced():
             conn.commit()
             print("✅ Vistas Business creadas exitosamente")
             
-        # Refrescar vista materializada (CONCURRENTLY para no bloquear lecturas)
+        # Refrescar vista materializada (sin CONCURRENTLY para setup inicial)
         with engine.connect() as conn:
-            conn.execute(text("REFRESH MATERIALIZED VIEW CONCURRENTLY business.mv_monthly_kpis_byNapo;"))
+            conn.execute(text("REFRESH MATERIALIZED VIEW business.mv_monthly_kpis_byNapo;"))
             conn.commit()
             print("✅ Vista materializada mv_monthly_kpis_byNapo refrescada")
             
@@ -367,11 +344,21 @@ def setup_business_enhanced():
             print(f"📊 Validación: Vista maestra accesible ({count:,}+ registros)")
             
     except Exception as e:
-        print(f"❌ Error creando vistas Business: {str(e)}")
+        print(f"\n❌ Error creando vistas Business:\n{str(e)}")
         raise
     
-    print("🎉 Capa Business byNapo lista para consumo analítico")
+    print("\n📌 Enumerando artefactos reconstruidos/creados:")
+    print("  1. Esquema: [business]")
+    print("  2. Vista:   [business.v_employee_full_byNapo]")
+    print("  3. Vista:   [business.v_org_tree_byNapo]")
+    print("  4. MatView: [business.mv_monthly_kpis_byNapo]")
+    print("  5. Vista:   [business.v_kpi_summary_byNapo]")
+    print("  6. Vista:   [business.v_compensation_analysis_byNapo]")
+    print("  🔑 Permisos [anon] asignados correctamente (Supabase).")
 
+    elapsed = time.time() - start_time
+    print(f"\n✅ ETL 07 completado exitosamente en {elapsed:.2f} segundos.")
+    print("="*50 + "\n")
 
 if __name__ == "__main__":
     setup_business_enhanced()

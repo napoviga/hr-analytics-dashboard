@@ -1,4 +1,5 @@
 import os
+import time
 from sqlalchemy import create_engine, text
 from dotenv import load_dotenv
 
@@ -6,7 +7,12 @@ load_dotenv('../.env')
 db_url = os.getenv("DATABASE_URL")
 
 def setup_raw_enhanced():
-    print("🔨 Creando tablas RAW potenciadas (byNapo)...")
+    start_time = time.time()
+    print("\n" + "="*50)
+    print("🛠️  [ETL 05] CONSTRUYENDO CAPA RAW (byNapo)")
+    print("="*50)
+
+    print("⏳ Ejecutando DDL sobre esquema [raw]...")
     engine = create_engine(db_url)
     
     sql_queries = """
@@ -64,10 +70,21 @@ def setup_raw_enhanced():
     );
     """
 
-    with engine.connect() as conn:
-        conn.execute(text(sql_queries))
-        conn.commit()
-    print("✅ Tablas RAW potenciadas creadas correctamente.")
+    try:
+        with engine.connect() as conn:
+            conn.execute(text(sql_queries))
+            conn.commit()
+    except Exception as e:
+        print(f"❌ Error en base de datos:\n{e}")
+        return
+        
+    print("\n📌 Enumerando artefactos creados:")
+    print("  1. Tabla: [raw.ibm_hr_monthly_snapshot_byNapo]")
+    print("  2. Tabla: [raw.ibm_hr_change_reasons_byNapo]")
+
+    elapsed = time.time() - start_time
+    print(f"\n✅ ETL 05 completado exitosamente en {elapsed:.2f} segundos.")
+    print("="*50 + "\n")
 
 if __name__ == "__main__":
     setup_raw_enhanced()

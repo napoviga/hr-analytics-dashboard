@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import os
+import time
 from datetime import datetime, timedelta
 import networkx as nx
 
@@ -16,8 +17,11 @@ CONFIG = {
 }
 
 def generate_dataset():
-    print("🚀 Iniciando generación del dataset potenciado byNapo...")
-    
+    start_time = time.time()
+    print("\n" + "="*50)
+    print("🧬 [ETL 04] GENERACIÓN DE DATASET MEJORADO (byNapo)")
+    print("="*50)
+    print("⏳ Configurando rangos de fecha y simulando datos...")
     # 1. Configuración de fechas
     start = pd.to_datetime(CONFIG["DATE_RANGE"]["start"])
     end = pd.to_datetime(CONFIG["DATE_RANGE"]["end"])
@@ -107,9 +111,20 @@ def generate_dataset():
     
     # Guardar CSV
     output_path = os.path.join(CONFIG["OUTPUT_DIR"], "ibm_hr_monthly_snapshot_byNapo.csv")
-    final_df.to_csv(output_path, index=False)
-    print(f"✅ Dataset guardado en: {output_path}")
-    print(f"📊 Total registros generados: {len(final_df)}")
+    try:
+        final_df.to_csv(output_path, index=False)
+    except Exception as e:
+        print(f"❌ Error al guardar CSV:\n{e}")
+        return
+
+    print("\n📌 Resumen de Generación:")
+    print(f"  ➜ Archivo CSV:    {output_path}")
+    print(f"  ➜ Total Meses:    {len(dates)}")
+    print(f"  ➜ Total Registros:{len(final_df):,}")
+
+    elapsed = time.time() - start_time
+    print(f"\n✅ ETL 04 completado exitosamente en {elapsed:.2f} segundos.")
+    print("="*50 + "\n")
 
 if __name__ == "__main__":
     generate_dataset()
