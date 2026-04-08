@@ -6,6 +6,8 @@ import Overview from './components/Overview'
 import Compensaciones from './components/Compensations'
 import OrgStructure from './components/OrgStructure'
 import OrganigramaIntegral from './components/OrganigramaIntegral'
+// 1. IMPORTAMOS LA NUEVA VISTA
+import Demographics from './components/Demographics' 
 
 function App() {
   const [empleados, setEmpleados] = useState([])
@@ -14,13 +16,12 @@ function App() {
 
   useEffect(() => {
     async function fetchEmpleados() {
-      // Intentamos traer los datos
+      // Mantenemos esto por ahora para no romper las vistas viejas
       const { data, error } = await supabase
         .schema('business')
         .from('ibm_hr')
         .select('*')
 
-      // Si hay un error, lo guardamos para verlo en pantalla
       if (error) {
         setErrorBd(error.message)
         console.error("Error de Supabase:", error)
@@ -50,6 +51,9 @@ function App() {
           <div className="mt-8">
             {/* Vistas Activas */}
             {vistaActual === 'vision_general' && <Overview data={empleados} />}
+            {/* 2. AGREGAMOS LA RUTA PARA DEMOGRAFÍA */}
+            {vistaActual === 'demografia' && <Demographics />} 
+            
             {vistaActual === 'estructura' && <OrgStructure setVistaActual={setVistaActual} />} 
             {vistaActual === 'org_integral' && <OrganigramaIntegral />}
             {vistaActual === 'compensaciones' && <Compensaciones data={empleados} />}

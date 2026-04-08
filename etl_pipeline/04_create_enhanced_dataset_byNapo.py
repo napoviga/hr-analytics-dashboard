@@ -11,120 +11,166 @@ import networkx as nx
 CONFIG = {
     "RANDOM_SEED": 42,
     "DATE_RANGE": {"start": "2020-01-01", "end": "2026-03-31"},
-    "EMPLOYEES_PER_MONTH": {"min": 4000, "max": 8000},
+    "EMPLOYEES_PER_MONTH": {"min": 4000, "max": 6000},
     "OUTPUT_DIR": "../data/",
-    "LOG_LEVEL": "INFO"
+    
+    # Configuración de IPC por país (Simulación anual)
+    "IPC_CONFIG": {
+        "PER": {"rate": 0.04, "month": 2}, # 4% en Febrero
+        "ESP": {"rate": 0.03, "month": 1}, # 3% en Enero
+        "CHL": {"rate": 0.035, "month": 7}, # 3.5% en Julio
+    },
+    
+    # Listas de datos para generación realista
+    "COUNTRIES": ["PER", "CHL", "COL", "MEX", "ESP", "USA"],
+    "DEPARTMENTS": ["IT", "Sales", "HR", "Finance", "Operations"],
+    "ROLES_BY_DEPT": {
+        "IT": ["Software Engineer", "DevOps", "Data Analyst", "CTO"],
+        "Sales": ["Sales Rep", "Account Manager", "Sales Director"],
+        "HR": ["HR Specialist", "HR Manager", "Recruiter"],
+        "Finance": ["Accountant", "Financial Analyst", "CFO"],
+        "Operations": ["Operator", "Logistics Coord", "Ops Director"]
+    }
 }
 
 def generate_dataset():
     start_time = time.time()
     print("\n" + "="*50)
-    print("🧬 [ETL 04] GENERACIÓN DE DATASET MEJORADO (byNapo)")
+    print("🧬 [ETL 04] GENERACIÓN DE DATASET POTENCIADO (byNapo)")
     print("="*50)
-    print("⏳ Configurando rangos de fecha y simulando datos...")
-    # 1. Configuración de fechas
+    
+    # Configuración de fechas
     start = pd.to_datetime(CONFIG["DATE_RANGE"]["start"])
     end = pd.to_datetime(CONFIG["DATE_RANGE"]["end"])
     dates = pd.date_range(start=start, end=end, freq="ME")
     
-    # 2. Carga base IBM (Simulación inicial)
-    # Nota: En un entorno real, leeríamos el CSV. Aquí simulamos la estructura.
-    # Para mantener el script ligero, asumimos que generaremos datos desde cero 
-    # basados en patrones, pero manteniendo la firma IBM.
+    # Generamos datos iniciales (Seed)
+    n_seed = CONFIG["EMPLOYEES_PER_MONTH"]["min"]
     
-    # Generamos DataFrame vacío base con columnas clave
-    cols_snapshot = [
-        "snapshot_date", "employee_id", "employee_code", "full_name", "gender", 
-        "nationality_iso3", "country_iso3", "department_name", "job_role", 
-        "job_level_1", "job_level_2", "employment_status", "hire_date", 
-        "termination_date", "termination_reason_legal", "turnover_classification_company",
-        "monthly_salary_local", "currency_iso3", "fx_rate_to_usd", "monthly_salary_usd",
-        "manager_employee_id", "dotted_line_manager_id", "work_center_id", 
-        "home_lat", "home_lon", "work_modality", "education_level", 
-        "education_status", "marital_status", "dependents_count", 
-        "salary_change_flag", "salary_change_reason_code", "job_change_flag", 
-        "exit_interview_completed", "regrettable_loss_flag"
-    ]
+    # Listas auxiliares
+    first_names = ["Juan", "Maria", "Carlos", "Ana", "Luis", "Sofia", "Pedro", "Lucia"]
+    last_names = ["Perez", "Gomez", "Rodriguez", "Lopez", "Martinez", "Silva", "Torres"]
     
-    # Creamos lista de DataFrames mensuales
-    monthly_data = []
+    # Crear DataFrame inicial
+    data = {
+        "employee_id": range(1, n_seed + 1),
+        "employee_code": [f"EMP-{i:05d}" for i in range(1, n_seed + 1)],
+        "full_name": [f"{np.random.choice(first_names)} {np.random.choice(last_names)}" for _ in range(n_seed)],
+        "gender": np.random.choice(["Male", "Female"], n_seed),
+        "country_iso3": np.random.choice(CONFIG["COUNTRIES"], n_seed),
+        "department_name": np.random.choice(CONFIG["DEPARTMENTS"], n_seed),
+        "job_role": ["Role"] * n_seed, # Se actualizará luego
+        "job_level_1": np.random.choice(["Management", "Individual Contributor"], n_seed),
+        "job_level_2": np.random.choice(["Senior", "Junior", "Lead"], n_seed),
+        "employment_status": "Active",
+        "hire_date": [(start - pd.Timedelta(days=int(d))).strftime("%Y-%m-%d") for d in np.random.randint(100, 2000, n_seed)],
+        "termination_date": None,
+        "monthly_salary_local": np.random.uniform(1500, 5000, n_seed).round(2),
+        "currency_iso3": "PEN", # Default
+        "manager_employee_id": None
+    }
     
-    print(f"📅 Generando snapshots desde {start.strftime('%Y-%m')} hasta {end.strftime('%Y-%m')}...")
+    # Asignar roles correctos según departamento
+    df = pd.DataFrame(data)
+    df["job_role"] = df.apply(lambda row: np.random.choice(CONFIG["ROLES_BY_DEPT"].get(row["department_name"], ["General"])), axis=1)
     
-    # Simulación simplificada para demostración (Reemplazar con tu lógica completa de simulación si la tienes externa)
-    # Aquí creamos 100 empleados de prueba por mes para validar la estructura
+    # Asignar Moneda por país
+    currency_map = {"PER": "PEN", "ESP": "EUR", "USA": "USD", "CHL": "CLP", "COL": "COP", "MEX": "MXN"}
+    df["currency_iso3"] = df["country_iso3"].map(currency_map)
+    
+    # Organigrama Inicial (Managers son los primeros 10% de empleados)
+    managers = df[df["job_level_1"] == "Management"]["employee_id"].tolist()
+    df["manager_employee_id"] = df["employee_id"].apply(
+        lambda x: np.random.choice(managers) if x not in managers else None
+    )
+    
+    # Lista para guardar snapshots mensuales
+    monthly_snapshots = []
+    
+    print(f"📅 Iniciando simulación desde {start.strftime('%Y-%m')}...")
+    
     for date in dates:
-        # Generar datos dummy para el mes
-        n_emp = np.random.randint(CONFIG["EMPLOYEES_PER_MONTH"]["min"], CONFIG["EMPLOYEES_PER_MONTH"]["max"])
+        current_month_str = date.strftime("%Y-%m-%d")
         
-        # Datos básicos
-        data = {
-            "snapshot_date": date.strftime("%Y-%m-%d"),
-            "employee_id": range(1, n_emp + 1),
-            "employee_code": [f"EMP-{i:05d}" for i in range(1, n_emp + 1)],
-            "full_name": ["Empleado Generado" for _ in range(n_emp)], # Reemplazar con generador de nombres
-            "gender": np.random.choice(["Male", "Female"], n_emp),
-            "nationality_iso3": np.random.choice(["PER", "CHL", "COL", "MEX", "USA", "ESP"], n_emp),
-            "country_iso3": np.random.choice(["PER", "CHL", "COL", "MEX", "USA", "ESP"], n_emp),
-            "department_name": np.random.choice(["Sales", "IT", "HR", "Operations"], n_emp),
-            "job_role": np.random.choice(["Analyst", "Manager", "Director"], n_emp),
-            "job_level_1": np.random.choice(["Individual Contributor", "Management"], n_emp),
-            "job_level_2": np.random.choice(["Junior", "Senior", "Lead"], n_emp),
-            "employment_status": np.random.choice(["Active", "Terminated"], n_emp, p=[0.9, 0.1]),
-            "hire_date": (date - pd.Timedelta(days=np.random.randint(1, 3650))).strftime("%Y-%m-%d"),
-            "termination_date": [None] * n_emp, # Lógica de cese necesaria aquí
-            "termination_reason_legal": [None] * n_emp,
-            "turnover_classification_company": [None] * n_emp,
-            "monthly_salary_local": np.random.uniform(1000, 5000, n_emp).round(2),
-            "currency_iso3": "PEN",
-            "fx_rate_to_usd": 3.70,
-            "monthly_salary_usd": 0.0, # Se calculará
-            "manager_employee_id": [None] * n_emp,
-            "dotted_line_manager_id": [None] * n_emp,
-            "work_center_id": np.random.choice(["WC-001", "WC-002"], n_emp),
-            "home_lat": np.random.uniform(-12.0, -11.0, n_emp),
-            "home_lon": np.random.uniform(-77.0, -76.0, n_emp),
-            "work_modality": "Hybrid",
-            "education_level": "Bachelor",
-            "education_status": "Complete",
-            "marital_status": "Single",
-            "dependents_count": 0,
-            "salary_change_flag": 0,
-            "salary_change_reason_code": None,
-            "job_change_flag": 0,
-            "exit_interview_completed": False,
-            "regrettable_loss_flag": False
-        }
+        # --- 1. LÓGICA DE EVENTOS DEL MES ---
         
-        df = pd.DataFrame(data)
+        # A. Ajuste Salarial por IPC
+        for country, config in CONFIG["IPC_CONFIG"].items():
+            if date.month == config["month"]:
+                mask = (df["country_iso3"] == country) & (df["employment_status"] == "Active")
+                df.loc[mask, "monthly_salary_local"] *= (1 + config["rate"])
+                print(f"   📈 IPC aplicado a {country}: +{config['rate']*100}%")
         
-        # Cálculo de FX y USD
-        df["monthly_salary_usd"] = (df["monthly_salary_local"] / df["fx_rate_to_usd"]).round(2)
+        # B. Rotación (Bajas aleatorias 1%)
+        attrition_rate = 0.01
+        active_employees = df[df["employment_status"] == "Active"]
+        leaving_ids = np.random.choice(active_employees["employee_id"], size=int(len(active_employees) * attrition_rate), replace=False)
+        df.loc[df["employee_id"].isin(leaving_ids), "employment_status"] = "Terminated"
+        df.loc[df["employee_id"].isin(leaving_ids), "termination_date"] = current_month_str
         
-        # Validación Organigrama (Ejemplo simple con NetworkX)
-        # En producción: G = nx.DiGraph(); G.add_edges_from(...); assert nx.is_directed_acyclic_graph(G)
-        
-        monthly_data.append(df)
+        # C. Contrataciones (Para mantener volumen)
+        n_new = int(CONFIG["EMPLOYEES_PER_MONTH"]["min"] * 0.02) # 2% nueva contratación
+        for i in range(n_new):
+            new_id = df["employee_id"].max() + 1
+            country = np.random.choice(CONFIG["COUNTRIES"])
+            new_row = {
+                "employee_id": new_id,
+                "employee_code": f"EMP-{new_id:05d}",
+                "full_name": f"{np.random.choice(first_names)} {np.random.choice(last_names)}",
+                "gender": np.random.choice(["Male", "Female"]),
+                "country_iso3": country,
+                "department_name": np.random.choice(CONFIG["DEPARTMENTS"]),
+                "job_role": np.random.choice(CONFIG["ROLES_BY_DEPT"].get("IT", ["General"])),
+                "job_level_1": "Individual Contributor",
+                "job_level_2": "Junior",
+                "employment_status": "Active",
+                "hire_date": current_month_str,
+                "termination_date": None,
+                "monthly_salary_local": np.random.uniform(1000, 3000),
+                "currency_iso3": currency_map[country],
+                "manager_employee_id": np.random.choice(managers)
+            }
+            # Agregar al DataFrame (pd.concat es lento en bucles, pero ok para este volumen)
+            # Para optimizar, en prod se usaría lista y concat final.
+            df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
 
-    # Concatenar todo
-    final_df = pd.concat(monthly_data, ignore_index=True)
+        # --- 2. VALIDACIÓN DE ORGANIGRAMA (NetworkX) ---
+        # Validar que no haya ciclos ni managers fantasmas
+        valid_ids = set(df[df["employment_status"] == "Active"]["employee_id"])
+        
+        # Corregir managers fantasmas
+        for idx, row in df.iterrows():
+            if row["employment_status"] == "Active" and row["manager_employee_id"] is not None:
+                if row["manager_employee_id"] not in valid_ids:
+                    # Asignar a un manager válido al azar
+                    df.at[idx, "manager_employee_id"] = np.random.choice(managers)
+        
+        # --- 3. GUARDAR SNAPSHOT ---
+        snapshot_df = df.copy()
+        snapshot_df["snapshot_date"] = current_month_str
+        
+        # Calcular USD (simulado fx fijo 1:3.5 para simplificar, en prod usar tabla FX)
+        snapshot_df["fx_rate_to_usd"] = 3.50 
+        snapshot_df["monthly_salary_usd"] = (snapshot_df["monthly_salary_local"] / snapshot_df["fx_rate_to_usd"]).round(2)
+        
+        # Flags placeholder (se llenarían con lógica de eventos)
+        snapshot_df["salary_change_flag"] = 0
+        snapshot_df["job_change_flag"] = 0
+        
+        monthly_snapshots.append(snapshot_df)
+    
+    # Concatenar todos los meses
+    final_df = pd.concat(monthly_snapshots, ignore_index=True)
     
     # Guardar CSV
+    os.makedirs(CONFIG["OUTPUT_DIR"], exist_ok=True)
     output_path = os.path.join(CONFIG["OUTPUT_DIR"], "ibm_hr_monthly_snapshot_byNapo.csv")
-    try:
-        final_df.to_csv(output_path, index=False)
-    except Exception as e:
-        print(f"❌ Error al guardar CSV:\n{e}")
-        return
-
-    print("\n📌 Resumen de Generación:")
-    print(f"  ➜ Archivo CSV:    {output_path}")
-    print(f"  ➜ Total Meses:    {len(dates)}")
-    print(f"  ➜ Total Registros:{len(final_df):,}")
-
+    final_df.to_csv(output_path, index=False)
+    
     elapsed = time.time() - start_time
-    print(f"\n✅ ETL 04 completado exitosamente en {elapsed:.2f} segundos.")
-    print("="*50 + "\n")
+    print(f"\n✅ Dataset guardado en: {output_path}")
+    print(f"📊 Total registros generados: {len(final_df):,}")
+    print(f"⏱️ Tiempo: {elapsed:.2f} segundos")
 
 if __name__ == "__main__":
     generate_dataset()

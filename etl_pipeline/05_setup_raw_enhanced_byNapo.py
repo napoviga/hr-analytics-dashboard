@@ -18,8 +18,12 @@ def setup_raw_enhanced():
     sql_queries = """
     CREATE SCHEMA IF NOT EXISTS raw;
 
-    -- Tabla Principal: Snapshot Mensual
-    CREATE TABLE IF NOT EXISTS raw.ibm_hr_monthly_snapshot_byNapo (
+    -- Limpiar versiones anteriores (ambas variantes de casing por seguridad)
+    DROP TABLE IF EXISTS raw."ibm_hr_monthly_snapshot_byNapo" CASCADE;
+    DROP TABLE IF EXISTS raw."ibm_hr_monthly_snapshot_bynapo" CASCADE;
+
+    -- Tabla Principal: Snapshot Mensual (nombre citado para preservar case)
+    CREATE TABLE raw."ibm_hr_monthly_snapshot_byNapo" (
         snapshot_date TEXT,
         employee_id TEXT,
         employee_code TEXT,
@@ -59,7 +63,9 @@ def setup_raw_enhanced():
     );
 
     -- Tabla de Catálogo de Motivos
-    CREATE TABLE IF NOT EXISTS raw.ibm_hr_change_reasons_byNapo (
+    DROP TABLE IF EXISTS raw."ibm_hr_change_reasons_byNapo" CASCADE;
+    DROP TABLE IF EXISTS raw."ibm_hr_change_reasons_bynapo" CASCADE;
+    CREATE TABLE raw."ibm_hr_change_reasons_byNapo" (
         reason_code TEXT,
         reason_name_es TEXT,
         reason_name_en TEXT,
