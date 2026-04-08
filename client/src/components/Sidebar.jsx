@@ -14,12 +14,14 @@ import {
   Grip,
   UserCircle,
   ChevronDown,
-  ChevronRight
+  ChevronRight,
+  PieChart
 } from 'lucide-react';
 
 export default function Sidebar({ vistaActual, setVistaActual }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isOrgExpanded, setIsOrgExpanded] = useState(false);
+  const [isVisionGeneralOpen, setIsVisionGeneralOpen] = useState(false);
 
   // Arreglo con todos los módulos planificados
   const menuItems = [
@@ -63,6 +65,66 @@ export default function Sidebar({ vistaActual, setVistaActual }) {
           const IconComponent = item.icon;
           const isActive = vistaActual === item.id;
           
+          if (item.id === 'vision_general') {
+            const isVisActive = vistaActual === 'vision_general' || vistaActual === 'demografia';
+            return (
+              <div key={item.id}>
+                <button 
+                  onClick={() => {
+                    setVistaActual('vision_general');
+                    if (!isExpanded) {
+                      setIsExpanded(true);
+                      setIsVisionGeneralOpen(true);
+                    } else {
+                      setIsVisionGeneralOpen(!isVisionGeneralOpen);
+                    }
+                  }}
+                  className={`w-full flex items-center justify-between px-4 py-3 cursor-pointer transition-colors whitespace-nowrap overflow-hidden ${
+                    isVisActive 
+                      ? 'bg-blue-50 text-blue-700 border-l-4 border-blue-600' 
+                      : 'text-gray-600 hover:bg-gray-100 border-l-4 border-transparent'
+                  }`}
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="shrink-0 flex items-center justify-center w-8">
+                      <IconComponent size={20} className={isVisActive ? 'text-blue-600' : 'text-gray-500'} />
+                    </div>
+                    {isExpanded && (
+                      <span className="font-medium text-sm">
+                        {item.label}
+                      </span>
+                    )}
+                  </div>
+                  {isExpanded && (
+                    isVisionGeneralOpen ? <ChevronDown size={16} className="text-gray-500" /> : <ChevronRight size={16} className="text-gray-400" />
+                  )}
+                </button>
+                
+                {/* Submenús */}
+                {isExpanded && isVisionGeneralOpen && (
+                  <div className="flex flex-col mt-1 mb-1 space-y-1">
+                    {[
+                      { id: 'vision_general', label: 'Dashboard Principal' },
+                      { id: 'demografia', label: 'Demografía' },
+                    ].map(subItem => (
+                      <button
+                        key={subItem.id}
+                        onClick={() => setVistaActual(subItem.id)}
+                        className={`w-full text-left pl-12 pr-4 py-2 text-sm transition-colors whitespace-nowrap overflow-hidden ${
+                          vistaActual === subItem.id 
+                            ? 'text-blue-700 font-medium' 
+                            : 'text-gray-500 hover:text-blue-600 hover:bg-gray-50'
+                        }`}
+                      >
+                        {subItem.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          }
+
           if (item.id === 'estructura') {
             const isEstActive = vistaActual.startsWith('org_') || vistaActual === 'estructura';
             return (

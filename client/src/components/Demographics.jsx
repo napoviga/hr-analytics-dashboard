@@ -3,8 +3,9 @@ import { supabase } from '../lib/supabaseClient';
 import ReactECharts from 'echarts-for-react'; // <-- IMPORTANTE: Nueva importación
 
 const Demographics = () => {
+  const [filterOptions, setFilterOptions] = useState({ periods: [], countries: [], departments: [] });
   const [filters, setFilters] = useState({
-    periodDate: '2026-03-31',
+    periodDate: '',
     country: '',
     department: '',
   });
@@ -14,12 +15,34 @@ const Demographics = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    const fetchMetadata = async () => {
+      try {
+        const { data, error } = await supabase.schema('business').from('mv_ui_global_filters').select('filter_options').single();
+        if (error) throw error;
+        
+        const options = data.filter_options || { periods: [], countries: [], departments: [] };
+        setFilterOptions(options);
+        
+        if (options.periods && options.periods.length > 0) {
+          setFilters(prev => ({ ...prev, periodDate: options.periods[0] }));
+        }
+      } catch (err) {
+        console.error('Error fetching filter metadata:', err);
+      }
+    };
+    
+    fetchMetadata();
+  }, []);
+
+  useEffect(() => {
+    if (!filters.periodDate) return;
+
     const fetchDemographicsData = async () => {
       setLoading(true);
       setError(null);
       
       try {
-        const { data: rpcData, error: rpcError } = await supabase.rpc('get_demographics_dashboard', {
+        const { data: rpcData, error: rpcError } = await supabase.schema('business').rpc('get_demographics_dashboard', {
           p_period_date: filters.periodDate,
           p_country: filters.country || null,
           p_department: filters.department || null,
@@ -40,6 +63,13 @@ const Demographics = () => {
 
     fetchDemographicsData();
   }, [filters]);
+
+  const formatPeriodLabel = (dateStr) => {
+    if (!dateStr) return '';
+    const [year, month] = dateStr.split('-');
+    const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    return `${monthNames[parseInt(month, 10) - 1]} ${year}`;
+  };
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
@@ -151,33 +181,29 @@ const Demographics = () => {
         <div className="flex flex-col">
           <label className="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1">Periodo</label>
           <select name="periodDate" value={filters.periodDate} onChange={handleFilterChange} className="border border-gray-300 rounded text-sm px-3 py-1.5 focus:ring-1 focus:ring-blue-600 outline-none">
-            <option value="2026-03-31">Marzo 2026</option>
-            <option value="2026-02-28">Febrero 2026</option>
-            <option value="2026-01-31">Enero 2026</option>
-            <option value="2025-12-31">Diciembre 2025</option>
+            {filterOptions.periods.map(opt => (
+              <option key={opt} value={opt}>
+                {formatPeriodLabel(opt)}
+              </option>
+            ))}
           </select>
         </div>
         <div className="flex flex-col">
           <label className="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1">País</label>
           <select name="country" value={filters.country} onChange={handleFilterChange} className="border border-gray-300 rounded text-sm px-3 py-1.5 focus:ring-1 focus:ring-blue-600 outline-none">
             <option value="">Todos los Países</option>
-            <option value="USA">Estados Unidos</option>
-            <option value="MEX">México</option>
-            <option value="ESP">España</option>
-            <option value="PER">Perú</option>
-            <option value="COL">Colombia</option>
-            <option value="CHL">Chile</option>
+            {filterOptions.countries.map(opt => (
+              <option key={opt} value={opt}>{opt}</option>
+            ))}
           </select>
         </div>
         <div className="flex flex-col">
           <label className="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1">Departamento</label>
           <select name="department" value={filters.department} onChange={handleFilterChange} className="border border-gray-300 rounded text-sm px-3 py-1.5 focus:ring-1 focus:ring-blue-600 outline-none">
             <option value="">Todos los Departamentos</option>
-            <option value="IT">IT</option>
-            <option value="Sales">Ventas</option>
-            <option value="HR">Recursos Humanos</option>
-            <option value="Finance">Finanzas</option>
-            <option value="Operations">Operaciones</option>
+            {filterOptions.departments.map(opt => (
+              <option key={opt} value={opt}>{opt}</option>
+            ))}
           </select>
         </div>
       </div>

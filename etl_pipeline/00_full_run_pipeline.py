@@ -11,7 +11,9 @@ SCRIPTS = [
     "04_create_enhanced_dataset_byNapo.py",
     "05_setup_raw_enhanced_byNapo.py",
     "06_ingest_enhanced_byNapo.py",
-    "07_setup_business_enhanced_byNapo.py"
+    "07_setup_business_enhanced_byNapo.py",
+    "08_setup_rpc_dashboard.py",
+    "90_generate_data_inventory.py"  # <-- Nuestro nuevo Guardián de Calidad al final
 ]
 
 def print_banner():
