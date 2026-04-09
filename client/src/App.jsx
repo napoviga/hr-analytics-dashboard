@@ -37,11 +37,31 @@ function App() {
     fetchEmpleados()
   }, [])
 
-  // Revisamos si la vista actual corresponde a la raíz de uno de nuestros 13 módulos
-  const activeModule = navigationConfig.find(mod => mod.id === vistaActual);
+  // Lógica Breadcrumbs y Mapeo de Vista
+  let activeModuleName = '';
+  let activeSubName = '';
+  let activeModuleObj = null;
+
+  for (const module of navigationConfig) {
+    if (module.id === vistaActual) {
+      activeModuleName = module.title;
+      activeModuleObj = module;
+      break;
+    }
+    const sub = module.subItems?.find(s => s.id === vistaActual);
+    if (sub) {
+      activeModuleName = module.title;
+      activeSubName = sub.title;
+      break;
+    }
+  }
+
+  // Soporte a módulos de Administración no mapeados en navigationConfig principal
+  if (!activeModuleName && vistaActual === 'roles_permisos') { activeModuleName = 'Administración'; activeSubName = 'Roles & Permisos (RLS)'; }
+  if (!activeModuleName && vistaActual === 'conexiones_etl') { activeModuleName = 'Administración'; activeSubName = 'Conexiones ETL & Fuentes'; }
 
   return (
-    <div className="flex h-screen bg-gray-50 overflow-hidden text-gray-800">
+    <div className="flex h-screen bg-slate-50 overflow-hidden text-slate-800">
       <Sidebar vistaActual={vistaActual} setVistaActual={setVistaActual} />
 
       <main className="flex-1 overflow-y-auto p-10">
@@ -52,14 +72,21 @@ function App() {
         ) : (
           <div className="h-full">
             {/* Si estamos en la raíz del módulo, mostramos la Landing Section de ese módulo */}
-            {activeModule ? (
-              <SectionLanding module={activeModule} onNavigate={setVistaActual} />
+            {activeModuleObj ? (
+              <SectionLanding module={activeModuleObj} onNavigate={setVistaActual} />
             ) : (
-              /* Si estamos dentro de un sub-item, mostramos su gráfico correspondiente */
+              /* Si estamos dentro de un sub-item, mostramos su gráfico correspondiente con el Header Breadcrumb */
               <div className="max-w-7xl mx-auto">
-                <header className="mb-6 border-b border-gray-200 pb-4">
-                  <div className="flex items-center gap-3">
-                    <h1 className="text-2xl font-bold text-gray-800 tracking-tight">GDH Analytics</h1>
+                <header className="mb-8">
+                  <div className="flex flex-col gap-1">
+                    {activeModuleName && (
+                      <span className="text-[11px] font-bold text-indigo-500 uppercase tracking-widest leading-none mb-1">
+                        {activeModuleName} {activeSubName ? ' /' : ''}
+                      </span>
+                    )}
+                    <h1 className="text-3xl font-extrabold text-slate-800 tracking-tight leading-none">
+                      {activeSubName || activeModuleName || 'GDH Analytics'}
+                    </h1>
                   </div>
                 </header>
 
