@@ -24,6 +24,7 @@ def setup_business_enhanced():
     DROP VIEW IF EXISTS business.v_employee_full_byNapo CASCADE;
     DROP VIEW IF EXISTS business.v_org_tree_byNapo CASCADE;
     DROP MATERIALIZED VIEW IF EXISTS business.mv_monthly_kpis_byNapo CASCADE;
+    DROP MATERIALIZED VIEW IF EXISTS business.mv_demographics_agg CASCADE;
     DROP VIEW IF EXISTS business.v_kpi_summary_byNapo CASCADE;
     DROP VIEW IF EXISTS business.v_compensation_analysis_byNapo CASCADE;
     DROP MATERIALIZED VIEW IF EXISTS business.mv_ui_global_filters CASCADE;
@@ -36,6 +37,7 @@ def setup_business_enhanced():
         job_level_1, job_level_2, employment_status, hire_date::DATE as hire_date,
         termination_date::DATE as termination_date, monthly_salary_local::NUMERIC(12,2),
         currency_iso3, fx_rate_to_usd::NUMERIC(10,4), monthly_salary_usd::NUMERIC(12,2),
+        work_center_id, -- Agregado para el nuevo filtro
         NULLIF(manager_employee_id, '')::NUMERIC::INTEGER as manager_employee_id,
         CASE WHEN termination_date::DATE IS NOT NULL THEN 
             EXTRACT(YEAR FROM AGE(termination_date::DATE, hire_date::DATE)) * 12 + EXTRACT(MONTH FROM AGE(termination_date::DATE, hire_date::DATE))
@@ -46,7 +48,7 @@ def setup_business_enhanced():
         NOW() as processed_at
     FROM raw."ibm_hr_monthly_snapshot_byNapo";
 
-    -- 2. VISTA DE ORGANIGRAMA (Con parche de seguridad para encontrar la Raíz)
+    -- 2. VISTA DE ORGANIGRAMA
     CREATE OR REPLACE VIEW business.v_org_tree_byNapo AS
     WITH RECURSIVE org_hierarchy AS (
         SELECT employee_id, full_name, job_role, job_level_1, department_name, manager_employee_id, 0 as depth, ARRAY[employee_id] as path
@@ -76,12 +78,33 @@ def setup_business_enhanced():
     FROM business.v_employee_full_byNapo GROUP BY snapshot_date, country_iso3;
     CREATE UNIQUE INDEX IF NOT EXISTS idx_kpis_unique ON business.mv_monthly_kpis_byNapo (snapshot_date, country_iso3);
 
-    -- 4. VISTA MATERIALIZADA DE METADATOS (Filtros Globales UI)
+    -- 4. VISTA MATERIALIZADA DE DEMOGRAFÍA PRE-AGREGADA (Motor de Cards)
+    CREATE MATERIALIZED VIEW IF NOT EXISTS business.mv_demographics_agg AS
+    SELECT 
+        snapshot_date,
+        country_iso3,
+        department_name,
+        job_level_1,
+        job_level_2,
+        work_center_id,
+        COUNT(*) as total_hc,
+        COUNT(*) FILTER (WHERE hire_date BETWEEN DATE_TRUNC('month', snapshot_date) AND snapshot_date) as altas,
+        COUNT(*) FILTER (WHERE termination_date BETWEEN DATE_TRUNC('month', snapshot_date) AND snapshot_date) as bajas
+    FROM business.v_employee_full_byNapo
+    GROUP BY snapshot_date, country_iso3, department_name, job_level_1, job_level_2, work_center_id;
+
+    CREATE INDEX IF NOT EXISTS idx_demo_agg_snapshot ON business.mv_demographics_agg (snapshot_date);
+    CREATE INDEX IF NOT EXISTS idx_demo_agg_filters ON business.mv_demographics_agg (snapshot_date, country_iso3, department_name);
+
+    -- 5. VISTA MATERIALIZADA DE METADATOS (¡Los 6 Filtros Universales!)
     CREATE MATERIALIZED VIEW IF NOT EXISTS business.mv_ui_global_filters AS
     SELECT json_build_object(
         'periods', (SELECT COALESCE(json_agg(TO_CHAR(snapshot_date, 'YYYY-MM-DD')), '[]'::json) FROM (SELECT DISTINCT snapshot_date FROM business.mv_monthly_kpis_byNapo ORDER BY snapshot_date DESC) p),
         'countries', (SELECT COALESCE(json_agg(country_iso3), '[]'::json) FROM (SELECT DISTINCT country_iso3 FROM business.mv_monthly_kpis_byNapo WHERE country_iso3 IS NOT NULL ORDER BY country_iso3) c),
-        'departments', (SELECT COALESCE(json_agg(department_name), '[]'::json) FROM (SELECT DISTINCT department_name FROM business.v_employee_full_byNapo WHERE department_name IS NOT NULL ORDER BY department_name) d)
+        'departments', (SELECT COALESCE(json_agg(department_name), '[]'::json) FROM (SELECT DISTINCT department_name FROM business.v_employee_full_byNapo WHERE department_name IS NOT NULL ORDER BY department_name) d),
+        'job_levels_1', (SELECT COALESCE(json_agg(job_level_1), '[]'::json) FROM (SELECT DISTINCT job_level_1 FROM business.v_employee_full_byNapo WHERE job_level_1 IS NOT NULL ORDER BY job_level_1) jl1),
+        'job_levels_2', (SELECT COALESCE(json_agg(job_level_2), '[]'::json) FROM (SELECT DISTINCT job_level_2 FROM business.v_employee_full_byNapo WHERE job_level_2 IS NOT NULL ORDER BY job_level_2) jl2),
+        'work_centers', (SELECT COALESCE(json_agg(work_center_id), '[]'::json) FROM (SELECT DISTINCT work_center_id FROM business.v_employee_full_byNapo WHERE work_center_id IS NOT NULL ORDER BY work_center_id) wc)
     ) as filter_options;
 
     GRANT USAGE ON SCHEMA business TO anon;
@@ -92,6 +115,7 @@ def setup_business_enhanced():
         with engine.connect() as conn:
             conn.execute(text(sql_queries))
             conn.execute(text("REFRESH MATERIALIZED VIEW business.mv_monthly_kpis_byNapo;"))
+            conn.execute(text("REFRESH MATERIALIZED VIEW business.mv_demographics_agg;"))
             conn.execute(text("REFRESH MATERIALIZED VIEW business.mv_ui_global_filters;"))
             conn.commit()
             print("✅ Vistas creadas y refrescadas exitosamente.")

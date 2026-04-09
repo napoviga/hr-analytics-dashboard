@@ -56,17 +56,18 @@
 | Vista  | currency_iso3         | text                     |             100 |        6 | CLP, COP, EUR, MXN, PEN, USD                                                                                                                              |
 | Vista  | fx_rate_to_usd        | numeric(10,4)            |             100 |        1 | 3.5000                                                                                                                                                    |
 | Vista  | monthly_salary_usd    | numeric(12,2)            |             100 |    20445 | Valores múltiples (+20,445) | Ej: 1000.06, 1000.09, 1000.10...                                                                                            |
+| Vista  | work_center_id        | text                     |             100 |        6 | WC-CHL, WC-COL, WC-ESP, WC-MEX, WC-PER, WC-USA                                                                                                            |
 | Vista  | manager_employee_id   | integer                  |             100 |      605 | Valores múltiples (+605) | Ej: 1, 1005, 1011...                                                                                                           |
 | Vista  | tenure_months         | numeric                  |             100 |      141 | Valores múltiples (+141) | Ej: 0, 1, 10...                                                                                                                |
 | Vista  | is_active_at_snapshot | boolean                  |             100 |        2 | false, true                                                                                                                                               |
-| Vista  | processed_at          | timestamp with time zone |             100 |        1 | 2026-04-08 21:05:57.300737+00                                                                                                                             |
+| Vista  | processed_at          | timestamp with time zone |             100 |        1 | 2026-04-08 22:18:07.656035+00                                                                                                                             |
 
 ### 📊 v_org_tree_bynapo
 
 | Tipo   | Columna      | Dato    |   Completitud % |   Unicos | Muestra de Datos                                                                                                                                          |
 |:-------|:-------------|:--------|----------------:|---------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Vista  | employee_id  | integer |             100 |      298 | Valores múltiples (+298) | Ej: 1, 1032, 1068...                                                                                                           |
-| Vista  | full_name    | text    |             100 |       56 | Valores múltiples (+56) | Ej: Ana Gomez, Ana Lopez, Ana Martinez...                                                                                       |
+| Vista  | full_name    | text    |             100 |       56 | Valores múltiples (+56) | Ej: Juan Martinez, Ana Gomez, Luis Torres...                                                                                    |
 | Vista  | job_role     | text    |             100 |       17 | Account Manager, Accountant, CEO, CFO, CTO, Data Analyst, DevOps, Financial Analyst, HR Manager, HR Specialist, Logistics Coord, Operator, Ops Directo... |
 | Vista  | job_level_1  | text    |             100 |        2 | Individual Contributor, Management                                                                                                                        |
 | Vista  | depth        | integer |             100 |       11 | 0, 1, 10, 2, 3, 4, 5, 6, 7, 8, 9                                                                                                                          |
@@ -84,7 +85,7 @@
 | Tabla  | affects_salary | text                     |             100 |        2 | N, Y                                                                               |
 | Tabla  | affects_job    | text                     |             100 |        2 | N, Y                                                                               |
 | Tabla  | active_flag    | text                     |             100 |        1 | Y                                                                                  |
-| Tabla  | created_at     | timestamp with time zone |             100 |        1 | 2026-04-08 21:05:45.982498+00                                                      |
+| Tabla  | created_at     | timestamp with time zone |             100 |        1 | 2026-04-08 22:17:55.340852+00                                                      |
 
 ### 📊 ibm_hr_landing
 
@@ -125,7 +126,7 @@
 | Tabla  | yearsincurrentrole       | text                     |             100 |       19 | 0, 1, 10, 11, 12, 13, 14, 15, 16, 17, 18, 2, 3, 4, 5, 6, 7, 8, 9                                                                                          |
 | Tabla  | yearssincelastpromotion  | text                     |             100 |       16 | 0, 1, 10, 11, 12, 13, 14, 15, 2, 3, 4, 5, 6, 7, 8, 9                                                                                                      |
 | Tabla  | yearswithcurrmanager     | text                     |             100 |       18 | 0, 1, 10, 11, 12, 13, 14, 15, 16, 17, 2, 3, 4, 5, 6, 7, 8, 9                                                                                              |
-| Tabla  | created_at               | timestamp with time zone |             100 |        1 | 2026-04-08 21:03:18.931394+00                                                                                                                             |
+| Tabla  | created_at               | timestamp with time zone |             100 |        1 | 2026-04-08 22:15:23.287671+00                                                                                                                             |
 
 ### 📊 ibm_hr_monthly_snapshot_byNapo
 
@@ -166,5 +167,5 @@
 | Tabla  | job_change_flag                 | text                     |           100   |        1 | 0                                                                                                                                                         |
 | Tabla  | exit_interview_completed        | text                     |            15   |        2 | N, Y                                                                                                                                                      |
 | Tabla  | regrettable_loss_flag           | text                     |            15   |        2 | N, Y                                                                                                                                                      |
-| Tabla  | created_at                      | timestamp with time zone |           100   |        1 | 2026-04-08 21:03:34.742901+00                                                                                                                             |
+| Tabla  | created_at                      | timestamp with time zone |           100   |        1 | 2026-04-08 22:15:39.773149+00                                                                                                                             |
 
