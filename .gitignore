@@ -140,3 +140,10 @@ vite.config.ts.timestamp-*
 
 # Ignorar datos pesados
 data/*.csv
+
+# Python Cache & Envs
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/

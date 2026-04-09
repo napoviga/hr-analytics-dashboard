@@ -86,7 +86,7 @@ export default function Overview({ data }) {
         <h3 className="text-xl font-bold text-gray-200 mb-6">Distribución por Departamento</h3>
         <ReactECharts 
           option={chartOption} 
-          style={{ height: '350px', width: '100%' }} 
+          className="h-[350px] w-full"
           opts={{ renderer: 'svg' }}
         />
       </div>

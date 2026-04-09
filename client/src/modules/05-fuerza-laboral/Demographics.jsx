@@ -1,108 +1,10 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { supabase } from '../lib/supabaseClient';
+import React from 'react';
 import ReactECharts from 'echarts-for-react';
-
-// Paleta corporativa
-const PALETTE = ['#3b82f6', '#ec4899', '#8b5cf6', '#10b981', '#f59e0b', '#ef4444'];
+import { useDemographicsData, useDemographicsFilters } from './hooks/useDemographicsData';
 
 const Demographics = () => {
-  const [filterOptions, setFilterOptions] = useState({
-    periods: [], countries: [], departments: [],
-    job_levels_1: [], job_levels_2: [], work_centers: []
-  });
-  const [filters, setFilters] = useState({
-    periodDate: '', country: '', department: '',
-    jobLevel1: '', jobLevel2: '', workCenter: '',
-  });
-
-  const [data, setData] = useState({ total_activos_card: null, altas_card: null, bajas_card: null });
-  const [advancedData, setAdvancedData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const debounceRef = useRef(null);
-  const abortRef = useRef(false);
-
-  // ==========================================
-  // 1. FETCH METADATA
-  // ==========================================
-  useEffect(() => {
-    const fetchMetadata = async () => {
-      try {
-        const { data, error } = await supabase.schema('business').from('mv_ui_global_filters').select('filter_options').single();
-        if (error) throw error;
-        const opts = data.filter_options || {};
-        setFilterOptions({
-          periods: opts.periods || [], countries: opts.countries || [],
-          departments: opts.departments || [], job_levels_1: opts.job_levels_1 || [],
-          job_levels_2: opts.job_levels_2 || [], work_centers: opts.work_centers || [],
-        });
-        if (opts.periods?.length > 0) {
-          setFilters(prev => ({ ...prev, periodDate: opts.periods[0] }));
-        }
-      } catch (err) {
-        console.error('Error fetching filter metadata:', err);
-      }
-    };
-    fetchMetadata();
-  }, []);
-
-  // ==========================================
-  // 2. FETCH RPCs EN PARALELO (Debounced)
-  // ==========================================
-  const buildRpcParams = (f) => ({
-    p_period_date: f.periodDate,
-    p_country: f.country || null,
-    p_department: f.department || null,
-    p_job_level_1: f.jobLevel1 || null,
-    p_job_level_2: f.jobLevel2 || null,
-    p_work_center: f.workCenter || null,
-  });
-
-  const fetchData = useCallback(async (currentFilters) => {
-    abortRef.current = false;
-    setLoading(true);
-    setError(null);
-
-    const params = buildRpcParams(currentFilters);
-
-    try {
-      const [cardsRes, advRes] = await Promise.allSettled([
-        supabase.schema('business').rpc('get_demographics_dashboard', params),
-        supabase.schema('business').rpc('get_advanced_demographics', params),
-      ]);
-
-      if (abortRef.current) return;
-
-      if (cardsRes.status === 'fulfilled' && !cardsRes.value.error) {
-        setData(cardsRes.value.data || { total_activos_card: null });
-      } else {
-        const err = cardsRes.status === 'rejected' ? cardsRes.reason : cardsRes.value.error;
-        throw err;
-      }
-
-      if (advRes.status === 'fulfilled' && !advRes.value.error) {
-        setAdvancedData(advRes.value.data);
-      } else {
-        console.warn('Advanced charts RPC failed, cards still shown:', advRes);
-        setAdvancedData(null);
-      }
-    } catch (err) {
-      if (!abortRef.current) {
-        console.error('Error fetching demographics:', err);
-        setError(err.message || String(err));
-      }
-    } finally {
-      if (!abortRef.current) setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!filters.periodDate) return;
-    abortRef.current = true;
-    if (debounceRef.current) clearTimeout(debounceRef.current);
-    debounceRef.current = setTimeout(() => fetchData(filters), 600);
-    return () => { if (debounceRef.current) clearTimeout(debounceRef.current); };
-  }, [filters, fetchData]);
+  const { filterOptions, filters, handleFilterChange } = useDemographicsFilters();
+  const { data, advancedData, loading, error } = useDemographicsData(filters);
 
   // ==========================================
   // HELPERS
@@ -113,14 +15,6 @@ const Demographics = () => {
     return `${year}.${month}`;
   };
 
-  const handleFilterChange = (e) => {
-    const { name, value } = e.target;
-    setFilters((prev) => ({ ...prev, [name]: value }));
-  };
-
-  // ==========================================
-  // SNAPSHOT CARD CONFIG
-  // ==========================================
   const getSparklineOption = (sparklineData) => {
     const labels = (sparklineData || []).map(d => d.label);
     const values = (sparklineData || []).map(d => d.value);
@@ -146,7 +40,7 @@ const Demographics = () => {
     );
   };
 
-  const renderCard = (card, { colSpan = 1, accentColor = '#3b82f6', sparklineHeight = '80px' } = {}) => {
+  const renderCard = (card, { colSpan = 1, accentColor = '#3b82f6', sparklineHeightClass = 'h-[80px]' } = {}) => {
     if (!card) return (
       <div className={`${colSpan === 2 ? 'col-span-2' : ''} bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex items-center justify-center min-h-[240px]`}>
         <span className="text-gray-400 text-sm">Sin datos</span>
@@ -198,7 +92,11 @@ const Demographics = () => {
           </div>
         </div>
         <div className="px-1 pb-1">
-          <ReactECharts option={colSpan === 2 ? getSparklineOption(card.sparkline_data) : sparkOpt(card.sparkline_data)} style={{ height: sparklineHeight, width: '100%' }} opts={{ renderer: 'svg' }} />
+          <ReactECharts 
+            option={colSpan === 2 ? getSparklineOption(card.sparkline_data) : sparkOpt(card.sparkline_data)} 
+            className={`${sparklineHeightClass} w-full`} 
+            opts={{ renderer: 'svg' }} 
+          />
         </div>
       </div>
     );
@@ -212,22 +110,38 @@ const Demographics = () => {
   const getDiversityPyramidOption = () => {
     const raw = advancedData?.diversity_pyramid || [];
     const levels = [...new Set(raw.map(r => r.level))];
-    const maleData = levels.map(lv => { const found = raw.find(r => r.level === lv && r.gender === 'Male'); return found ? found.value : 0; });
-    const femaleData = levels.map(lv => { const found = raw.find(r => r.level === lv && r.gender === 'Female'); return found ? -found.value : 0; });
+    const genders = [...new Set(raw.map(r => r.gender))].sort();
+
+    const colorMap = { 'Male': '#3b82f6', 'Female': '#ec4899', 'Hombre': '#3b82f6', 'Mujer': '#ec4899' };
+    const defaultColors = ['#8b5cf6', '#10b981', '#f59e0b', '#ef4444'];
+    let colorIndex = 0;
+
+    const series = genders.map((g, i) => {
+      const isNegative = i === 1; // Efecto pirámide: el segundo género se dibuja hacia la izquierda
+      const c = colorMap[g] || defaultColors[colorIndex++ % defaultColors.length];
+      const radius = isNegative ? [4, 0, 0, 4] : [0, 4, 4, 0];
+      
+      const gData = levels.map(lv => {
+        const found = raw.find(r => r.level === lv && r.gender === g);
+        return found ? (isNegative ? -found.value : found.value) : 0;
+      });
+
+      return {
+        name: g, type: 'bar', stack: 'total', data: gData,
+        itemStyle: { color: c, borderRadius: radius }
+      };
+    });
 
     return {
       tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' },
         formatter: (params) => params.map(p => `${p.seriesName}: ${Math.abs(p.value).toLocaleString()}`).join('<br/>'),
       },
-      legend: { data: ['Male', 'Female'], bottom: 0, textStyle: { fontSize: 11 } },
+      legend: { data: genders, bottom: 0, textStyle: { fontSize: 11 }, type: 'scroll' },
       grid: { left: '3%', right: '4%', bottom: '12%', top: '4%', containLabel: true },
       xAxis: { type: 'value', axisLabel: { formatter: (v) => Math.abs(v) } },
       yAxis: { type: 'category', data: levels, axisTick: { show: false },
         axisLabel: { fontSize: 11, color: '#374151' } },
-      series: [
-        { name: 'Male', type: 'bar', stack: 'total', data: maleData, itemStyle: { color: '#3b82f6', borderRadius: [0, 4, 4, 0] } },
-        { name: 'Female', type: 'bar', stack: 'total', data: femaleData, itemStyle: { color: '#ec4899', borderRadius: [4, 0, 0, 4] } },
-      ],
+      series: series,
     };
   };
 
@@ -334,26 +248,26 @@ const Demographics = () => {
         <>
           {/* Snapshot Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {renderCard(data?.total_activos_card, { colSpan: 2, accentColor: '#3b82f6', sparklineHeight: '90px' })}
-            {renderCard(data?.altas_card, { colSpan: 1, accentColor: '#10b981', sparklineHeight: '70px' })}
-            {renderCard(data?.bajas_card, { colSpan: 1, accentColor: '#ef4444', sparklineHeight: '70px' })}
+            {renderCard(data?.total_activos_card, { colSpan: 2, accentColor: '#3b82f6', sparklineHeightClass: 'h-[90px]' })}
+            {renderCard(data?.altas_card, { colSpan: 1, accentColor: '#10b981', sparklineHeightClass: 'h-[70px]' })}
+            {renderCard(data?.bajas_card, { colSpan: 1, accentColor: '#ef4444', sparklineHeightClass: 'h-[70px]' })}
           </div>
 
           {/* Advanced Charts Grid 2x2 */}
           {advancedData && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <ChartCard title="Pirámide de Diversidad — Género vs Nivel">
-                <ReactECharts option={getDiversityPyramidOption()} style={{ height: '320px' }}
+                <ReactECharts option={getDiversityPyramidOption()} className="h-[320px] w-full"
                   notMerge={true} lazyUpdate={true} />
               </ChartCard>
 
               <ChartCard title="Heatmap de Bajas — Departamento x Mes">
-                <ReactECharts option={getTurnoverHeatmapOption()} style={{ height: '320px' }}
+                <ReactECharts option={getTurnoverHeatmapOption()} className="h-[320px] w-full"
                   notMerge={true} lazyUpdate={true} />
               </ChartCard>
 
               <ChartCard title="Distribución por País">
-                <ReactECharts option={getCountryDonutOption()} style={{ height: '320px' }}
+                <ReactECharts option={getCountryDonutOption()} className="h-[320px] w-full"
                   notMerge={true} lazyUpdate={true} />
               </ChartCard>
 

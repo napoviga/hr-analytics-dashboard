@@ -112,7 +112,7 @@ export default function Compensations({ data }) {
         <h3 className="text-xl font-bold text-gray-200 mb-6">Correlación: Edad vs. Tarifa Diaria</h3>
         <ReactECharts 
           option={chartOption} 
-          style={{ height: '400px', width: '100%' }} 
+          className="h-[400px] w-full"
           opts={{ renderer: 'svg' }}
         />
       </div>

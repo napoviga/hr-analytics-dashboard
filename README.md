@@ -44,14 +44,18 @@ Desarrollo de una plataforma analítica integral (Modern Data Stack) para la Ges
 
 ### 3.1. Folder Structure (Estructura de Carpetas - Separation of Concerns)
 
-- `/data`: Insumos crudos y datasets estáticos (ej. `ibm_hr.csv`).
-- `/etl_pipeline`: Scripts secuenciales de Python para limpieza y subida de datos a la nube:
-  - `01_setup_raw.py`: Crea la estructura base de aterrizaje.
-  - `02_ingest_data.py`: Ejecuta la carga masiva (batch) a la base de datos.
-  - `03_setup_business.py`: Genera la capa de vistas analíticas y permisos.
-- `/client`: Aplicación web interactiva (React / Vite).
-- `.env`: Credenciales seguras (excluido del control de versiones).
-- `.gitignore`: Reglas de seguridad para no subir archivos sensibles al repositorio.
+- `/data`: Insumos crudos y datasets estáticos.
+- `/docs`: Documentación técnica y especificaciones del producto.
+  - `/01-product-specs`: [Sitemap](docs/01-product-specs/01_navigation_sitemap.md) y [Lógica de Vistas](docs/01-product-specs/02_view_logic_specs.md).
+  - `/02-data-governance`: [Diccionarios de datos](docs/02-data-governance/01_data_dictionary.md), [Metadatos](docs/02-data-governance/02_supabase_metadata_inventory.md) y [Muestras](docs/02-data-governance/03_data_samples.md).
+  - `/03-ai-context`: [Blueprint del Proyecto](docs/03-ai-context/01_project_blueprint.md) y [Refactor Logs](docs/03-ai-context/02_refactor_log.md).
+- `/etl_pipeline`: Scripts modulares en Python para Data Engineering:
+  - `00_full_run_pipeline.py`: Orquestador maestro secuencial.
+  - `01` a `04`: Pipeline general (DataGen, Raw, Ingest, Business Core).
+  - `m05` en adelante: DDLs de dominios específicos (Fuerza Laboral, Nóminas, etc.).
+- `/client`: Aplicación web SPA (React / Vite) usando arquitectura de Módulos (ej. `src/modules/05-fuerza-laboral`).
+- `.env`: Credenciales seguras (excluido del repositorio).
+- `.gitignore`: Reglas de seguridad.
 - `README.md`: Este documento maestro.
 
 ---
@@ -109,8 +113,6 @@ Asegúrate de configurar tu archivo `.env` en la raíz con la `DATABASE_URL` del
 
 ```bash
 cd etl_pipeline
-python 01_setup_raw.py
-python 02_ingest_data.py
-python 03_setup_business.py
+python 00_full_run_pipeline.py
 cd ..
 ```
