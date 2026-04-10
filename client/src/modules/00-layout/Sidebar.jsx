@@ -37,7 +37,7 @@ export default function Sidebar({ vistaActual, setVistaActual }) {
         {isExpanded && (
           <div className="ml-3 flex flex-col justify-center overflow-hidden">
              <span className="font-bold text-slate-800 tracking-tight text-base leading-tight">GDH Analytics</span>
-             <span className="text-[10px] uppercase font-bold text-indigo-600 tracking-wider">Enterprise</span>
+             <span className="text-[10px] uppercase font-bold text-blue-600 tracking-wider">Enterprise</span>
           </div>
         )}
       </div>
@@ -55,23 +55,23 @@ export default function Sidebar({ vistaActual, setVistaActual }) {
                 onClick={() => handleModuleClick(item.id)}
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl cursor-pointer transition-all ${
                   isModuleActive 
-                    ? 'bg-indigo-50 text-indigo-600' 
-                    : 'text-slate-500 hover:bg-slate-50 hover:text-slate-700'
+                    ? 'bg-blue-50/80 text-blue-700 font-semibold' 
+                    : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
                 }`}
               >
                 <div className="flex items-center gap-3 overflow-hidden pr-2">
                   <div className={`shrink-0 flex items-center justify-center w-6 h-6`}>
-                    <IconComponent size={20} strokeWidth={isModuleActive ? 2.5 : 2} />
+                    <IconComponent size={20} strokeWidth={isModuleActive ? 2.5 : 2} className="text-current" />
                   </div>
                   {isExpanded && (
-                    <span className={`text-sm text-left leading-snug whitespace-normal break-words ${isModuleActive ? 'font-semibold' : 'font-medium'}`}>
+                    <span className={`text-xs uppercase tracking-wider font-bold text-left leading-snug whitespace-normal break-words ${isModuleActive ? 'text-blue-700' : 'text-slate-400'}`}>
                       {item.title}
                     </span>
                   )}
                 </div>
                 {isExpanded && item.subItems && item.subItems.length > 0 && (
                   <div className="shrink-0 ml-1">
-                    {isModuleOpen ? <ChevronDown size={16} className={isModuleActive ? "text-indigo-500" : "text-slate-400"} /> : <ChevronRight size={16} className={isModuleActive ? "text-indigo-500" : "text-slate-400"} />}
+                    {isModuleOpen ? <ChevronDown size={16} className="text-current opacity-70" /> : <ChevronRight size={16} className="text-current opacity-70" />}
                   </div>
                 )}
               </button>
@@ -84,10 +84,10 @@ export default function Sidebar({ vistaActual, setVistaActual }) {
                       <button
                         key={subItem.id}
                         onClick={() => handleSubItemClick(subItem.id)}
-                        className={`w-full text-left px-3 py-2 text-sm leading-snug whitespace-normal break-words transition-colors rounded-xl ${
+                        className={`w-full text-left px-3 py-2 text-sm leading-snug whitespace-normal break-words transition-colors rounded-xl capitalize ${
                           isSubActive
-                            ? 'text-indigo-600 font-semibold bg-indigo-50' 
-                            : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50 font-medium'
+                            ? 'text-blue-700 font-semibold bg-blue-50/80' 
+                            : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 font-medium'
                         }`}
                       >
                         {subItem.title}
@@ -104,8 +104,8 @@ export default function Sidebar({ vistaActual, setVistaActual }) {
         <div className="pt-4 mt-6 border-t border-slate-100">
           {isExpanded && (
             <div className="px-3 mb-2">
-              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-                Administración
+              <span className="text-xs uppercase tracking-wider font-bold text-slate-400">
+                ADMINISTRACIÓN
               </span>
             </div>
           )}
@@ -115,16 +115,16 @@ export default function Sidebar({ vistaActual, setVistaActual }) {
               onClick={() => setVistaActual('roles_permisos')}
               className={`w-full flex items-center justify-between px-3 py-2 rounded-xl cursor-pointer transition-all ${
                 vistaActual === 'roles_permisos'
-                  ? 'bg-slate-100 text-slate-800 font-semibold'
-                  : 'text-slate-500 hover:bg-slate-50 hover:text-slate-700 font-medium'
+                  ? 'bg-blue-50/80 text-blue-700 font-semibold'
+                  : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-medium'
               }`}
             >
               <div className="flex items-center gap-3 overflow-hidden pr-2">
                 <div className={`shrink-0 flex items-center justify-center w-6 h-6`}>
-                  <Icons.Lock size={20} strokeWidth={vistaActual === 'roles_permisos' ? 2.5 : 2} />
+                  <Icons.Lock size={20} strokeWidth={vistaActual === 'roles_permisos' ? 2.5 : 2} className="text-current" />
                 </div>
                 {isExpanded && (
-                  <span className={`text-sm text-left leading-snug whitespace-normal break-words`}>
+                  <span className={`text-sm font-medium text-left leading-snug whitespace-normal break-words capitalize`}>
                     Roles & Permisos (RLS)
                   </span>
                 )}
@@ -135,16 +135,16 @@ export default function Sidebar({ vistaActual, setVistaActual }) {
               onClick={() => setVistaActual('conexiones_etl')}
               className={`w-full flex items-center justify-between px-3 py-2 rounded-xl cursor-pointer transition-all ${
                 vistaActual === 'conexiones_etl'
-                  ? 'bg-slate-100 text-slate-800 font-semibold'
-                  : 'text-slate-500 hover:bg-slate-50 hover:text-slate-700 font-medium'
+                  ? 'bg-blue-50/80 text-blue-700 font-semibold'
+                  : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-medium'
               }`}
             >
               <div className="flex items-center gap-3 overflow-hidden pr-2">
                 <div className={`shrink-0 flex items-center justify-center w-6 h-6`}>
-                  <Icons.Plug size={20} strokeWidth={vistaActual === 'conexiones_etl' ? 2.5 : 2} />
+                  <Icons.Plug size={20} strokeWidth={vistaActual === 'conexiones_etl' ? 2.5 : 2} className="text-current" />
                 </div>
                 {isExpanded && (
-                  <span className={`text-sm text-left leading-snug whitespace-normal break-words`}>
+                  <span className={`text-sm font-medium text-left leading-snug whitespace-normal break-words capitalize`}>
                     Conexiones ETL & Fuentes
                   </span>
                 )}
@@ -155,7 +155,7 @@ export default function Sidebar({ vistaActual, setVistaActual }) {
       </nav>
 
       <div className="mt-auto border-t border-slate-200 p-4 flex items-center shrink-0 bg-slate-50">
-        <div className="shrink-0 flex items-center justify-center w-10 h-10 bg-indigo-600 shadow-sm text-white rounded-full">
+        <div className="shrink-0 flex items-center justify-center w-10 h-10 bg-blue-600 shadow-sm text-white rounded-full">
           <UserCircle size={24} />
         </div>
         {isExpanded && (

@@ -1,7 +1,7 @@
 export const navigationConfig = [
   {
     id: '01-vision-ejecutiva',
-    title: 'Visión Ejecutiva',
+    title: 'VISION EJECUTIVA',
     icon: 'LayoutDashboard',
     description: 'Panel de mando para monitoreo general, anomalías y posicionamiento estratégico.',
     subItems: [
@@ -30,7 +30,7 @@ export const navigationConfig = [
   },
   {
     id: '02-reclutamiento',
-    title: 'Reclutamiento & Selección',
+    title: 'RECLUTAMIENTO & SELECCION',
     icon: 'Users',
     description: 'Métricas de eficiencia, calidad predictiva y experiencia en los procesos de adquisición diferencial de talento.',
     subItems: [
@@ -73,7 +73,7 @@ export const navigationConfig = [
   },
   {
     id: '03-onboarding',
-    title: 'Onboarding & Integración',
+    title: 'ONBOARDING & INTEGRACION',
     icon: 'Rocket',
     description: 'Asegure la inserción exitosa del talento disminuyendo tiempos de productividad y riesgo de abandono.',
     subItems: [
@@ -102,7 +102,7 @@ export const navigationConfig = [
   },
   {
     id: '04-ciclo-vida',
-    title: 'Ciclo de Vida & Clústeres',
+    title: 'CICLO DE VIDA & CLUSTERES',
     icon: 'Repeat',
     description: 'Análisis comportamental y seguimiento longitudinal para descubrir hitos que impactan el desempeño.',
     subItems: [
@@ -131,7 +131,7 @@ export const navigationConfig = [
   },
   {
     id: '05-fuerza-laboral',
-    title: 'Fuerza Laboral & Estructura',
+    title: 'FUERZA LABORAL & ESTRUCTURA',
     icon: 'Network',
     description: 'Seleccione una perspectiva para explorar la jerarquía, distribución y métricas de nuestra organización.',
     subItems: [
@@ -181,7 +181,7 @@ export const navigationConfig = [
   },
   {
     id: '06-nomina-costos',
-    title: 'Nómina, Costos & Equidad',
+    title: 'NOMINA, COSTOS & EQUIDAD',
     icon: 'Wallet',
     description: 'Auditoría y análisis presupuestario, equidad interna e impacto monetario de la fuerza laboral.',
     subItems: [
@@ -231,7 +231,7 @@ export const navigationConfig = [
   },
   {
     id: '07-tiempo-asistencia',
-    title: 'Tiempo, Asistencia & Bienestar',
+    title: 'TIEMPO, ASISTENCIA & BIENESTAR',
     icon: 'Clock',
     description: 'Gestione ausentismos, horas extras, turnos y evalúe la carga y el agotamiento operativo.',
     subItems: [
@@ -281,7 +281,7 @@ export const navigationConfig = [
   },
   {
     id: '08-gestion-desempeno',
-    title: 'Gestión del Desempeño',
+    title: 'GESTION DEL DESEMPEÑO',
     icon: 'Target',
     description: 'Evaluación y trazabilidad del rendimiento y aportes de cada colaborador en la organización.',
     subItems: [
@@ -317,7 +317,7 @@ export const navigationConfig = [
   },
   {
     id: '09-talento-desarrollo',
-    title: 'Talento & Desarrollo',
+    title: 'TALENTO & DESARROLLO',
     icon: 'BookOpen',
     description: 'Gestione planes de carrera, ROI formativo, movilidad y asegure la continuidad del negocio.',
     subItems: [
@@ -360,7 +360,7 @@ export const navigationConfig = [
   },
   {
     id: '10-engagement-sentimiento',
-    title: 'Engagement & Sentimiento',
+    title: 'ENGAGEMENT & SENTIMIENTO',
     icon: 'Smile',
     description: 'Auditoría cultural, eNPS, y procesamiento NLP para detectar la temperatura organizacional y DEI.',
     subItems: [
@@ -389,7 +389,7 @@ export const navigationConfig = [
   },
   {
     id: '11-compliance',
-    title: 'Compliance & Relaciones',
+    title: 'COMPLIANCE & RELACIONES',
     icon: 'Shield',
     description: 'Control de riesgos normativos, relaciones laborales y obligaciones legales a nivel corporativo.',
     subItems: [
@@ -411,7 +411,7 @@ export const navigationConfig = [
   },
   {
     id: '12-retencion',
-    title: 'Retención & Riesgo de Fuga',
+    title: 'RETENCION & RIESGO DE FUGA',
     icon: 'UserMinus',
     description: 'Análisis y prevención de la pérdida de talento, scores predictivos y comparativas de turnover.',
     subItems: [
@@ -440,7 +440,7 @@ export const navigationConfig = [
   },
   {
     id: '13-calidad-datos',
-    title: 'Calidad de Datos',
+    title: 'CALIDAD DE DATOS',
     icon: 'Database',
     description: 'Audite la integridad y salud del modelo de datos e infraestructura para confianza analítica.',
     subItems: [

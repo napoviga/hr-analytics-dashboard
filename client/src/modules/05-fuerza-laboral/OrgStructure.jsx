@@ -4,13 +4,6 @@ import { Network, Users, CircleDollarSign, ArrowRight } from 'lucide-react';
 export default function OrgStructure({ setVistaActual }) {
   return (
     <div className="max-w-5xl">
-      <div className="mb-10">
-        <h2 className="text-2xl font-bold text-gray-800 mb-3">Estructura Organizativa</h2>
-        <p className="text-gray-600 text-lg">
-          Seleccione una perspectiva para explorar la jerarquía, distribución y métricas de nuestra organización.
-        </p>
-      </div>
-
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Card 1: Org Integral */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex flex-col hover:shadow-md transition-shadow">

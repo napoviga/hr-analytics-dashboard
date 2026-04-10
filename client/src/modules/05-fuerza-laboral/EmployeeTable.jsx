@@ -1,6 +1,6 @@
 export default function EmployeeTable({ data }) {
   return (
-    <div className="mt-8 overflow-x-auto rounded-lg shadow-2xl border border-gray-700 bg-gray-900">
+    <div className="overflow-x-auto rounded-lg shadow-2xl border border-gray-700 bg-gray-900">
       <table className="w-full text-left text-sm text-gray-300">
         <thead className="bg-gray-800 text-white uppercase text-xs font-semibold tracking-wider border-b border-gray-700">
           <tr>

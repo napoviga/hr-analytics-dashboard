@@ -7,7 +7,6 @@ export default function OrganigramaIntegral() {
       
       {/* Panel Superior: KPIs */}
       <div className="mb-8">
-        <h2 className="text-2xl font-bold text-slate-800 mb-6">Organigrama Integral</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           
           <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 flex items-center gap-4">
