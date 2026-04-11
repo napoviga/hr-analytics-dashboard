@@ -2,7 +2,7 @@
 
 > **Gestión del Desarrollo Humano** | Plataforma Analítica Enterprise de RRHH
 >
-> **Última actualización:** 2026-04-11 14:47:25 UTC
+> **Última actualización:** 2026-04-11 15:37:25 UTC
 > **Versión del proyecto:** v0.0.0
 > **Estado:** 🟡 En desarrollo activo
 
@@ -23,6 +23,7 @@
 - [Documentación](#-documentación)
 - [Contribuir](#-contribuir)
 - [Licencia](#-licencia)
+- [Sobre el Desarrollador](#-sobre-el-desarrollador)
 - [Soporte](#-soporte)
 - [Métricas del Proyecto](#-métricas-del-proyecto)
 - [Historial de Actualizaciones](#-historial-de-actualizaciones)
@@ -676,6 +677,15 @@ El proyecto usa el design system **"Corporate Slate & Blue"**:
 
 ---
 
+## 👨‍💻 Sobre el Desarrollador
+
+**Jesús Napoleón "Napo" Villegas Gálvez**
+*Data Engineer & AI Specialist | Corporate Data Architect*
+
+Profesional híbrido especializado en traducir operaciones de negocio complejas en arquitecturas de datos escalables. Con formación en gestión corporativa y actualmente cursando una Maestría en Data Analytics & Inteligencia Artificial (ESAN), diseño soluciones integrales (Data Mesh, ETL, predicción ML) que impactan directamente en la rentabilidad de las empresas.
+
+---
+
 ## 📞 Soporte
 
 | Canal | Enlace |
@@ -761,7 +771,7 @@ El proyecto usa el design system **"Corporate Slate & Blue"**:
 
 | Métrica | Valor |
 |---------|-------|
-| **README** | 2026-04-11 14:47:25 UTC |
+| **README** | 2026-04-11 15:37:25 UTC |
 | **Versión del Proyecto** | v0.0.0 (de package.json) |
 | **Estado del Proyecto** | 🟡 En desarrollo activo (2 módulos implementados, 12 pendientes) |
 
@@ -771,6 +781,7 @@ El proyecto usa el design system **"Corporate Slate & Blue"**:
 
 | Fecha | Versión | Cambios Principales | Autor |
 |-------|---------|---------------------|-------|
+| 2026-04-11 15:37:25 UTC | v0.0.0 | README actualizado via Prompt 90. Sección "Sobre el Desarrollador" agregada. Timestamp actualizado. | Qwen Code Terminal (Prompt 90) |
 | 2026-04-11 14:47:25 UTC | v0.0.0 | README actualizado (Prompt 90). Re-ejecución tras cambios manuales del usuario. Fuentes: 8 documentos + código fuente verificado. | Qwen Code Terminal (Prompt 90) |
 | 2026-04-11 14:10:27 UTC | v0.0.0 | README re-escrito completamente con mejores prácticas 2024-2025. Fuentes: 8 documentos + código. Métricas cruzadas, DB documentada, audit score incluido. | Qwen Code Terminal (Prompt 90) |
 
@@ -805,7 +816,7 @@ FASE 3: DESARROLLO FRONTEND
 
 <div align="center">
 
-**Hecho con ❤️ por el equipo de GDH Analytics**
+**Hecho con ❤️ por Jesús "Napo" Villegas**
 
 [⬆️ Volver al inicio](#-enterprise-hr-analytics-dashboard--gdh-analytics)
 
