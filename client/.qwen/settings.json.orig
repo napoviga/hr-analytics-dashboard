@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(E:\\Google Drive\\Analytics_Projects_HUB\\hr-analytics-dashboard\\etl_pipeline/**)"
+    ]
+  }
+}

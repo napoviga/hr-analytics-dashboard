@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(E:\\Google Drive\\Analytics_Projects_HUB\\hr-analytics-dashboard\\etl_pipeline/**)",
+      "Read(E:\\Google Drive\\Analytics_Projects_HUB\\hr-analytics-dashboard\\docs\\prompts/**)",
+      "Bash(powershell *)",
+      "Bash(move *)",
+      "Bash(rd *)",
+      "Read(E:\\Google Drive\\Analytics_Projects_HUB\\hr-analytics-dashboard\\docs/**)",
+      "Read(E:\\Google Drive\\Analytics_Projects_HUB\\hr-analytics-dashboard\\docs\\PIPELINE_ORDER.md/**)"
+    ]
+  },
+  "$version": 3
+}

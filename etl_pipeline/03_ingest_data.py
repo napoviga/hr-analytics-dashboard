@@ -1,16 +1,21 @@
 import pandas as pd
 import os
 import time
+from pathlib import Path
 from sqlalchemy import create_engine
 from dotenv import load_dotenv
 
-load_dotenv('../.env')
+# Resolver ruta absoluta al .env
+ETL_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = ETL_DIR.parent
+env_path = PROJECT_ROOT / ".env"
+load_dotenv(env_path)
 db_url = os.getenv("DATABASE_URL")
 
 def ingest_enhanced_data():
     start_time = time.time()
     print("\n" + "="*50)
-    print("📥 [ETL 06] INGESTA DE DATOS POTENCIADOS (byNapo)")
+    print("📥 [ETL 03] INGESTA DE DATOS (byNapo)")
     print("="*50)
     
     engine = create_engine(db_url)

@@ -1,10 +1,16 @@
 import os
 import time
+from pathlib import Path
+from datetime import datetime, timezone
 import pandas as pd
 from sqlalchemy import create_engine, text
 from dotenv import load_dotenv
 
-load_dotenv('../.env')
+# Resolver ruta absoluta al .env
+ETL_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = ETL_DIR.parent
+env_path = PROJECT_ROOT / ".env"
+load_dotenv(env_path)
 db_url = os.getenv("DATABASE_URL")
 
 def run_data_inventory():
@@ -20,8 +26,8 @@ def run_data_inventory():
     MAX_CARACTERES = 150 
 
     # --- NUEVA RUTA DE DOCUMENTACIÓN (Docs as Code) ---
-    md_path = "../docs/02-data-governance/02_supabase_metadata_inventory.md"
-    os.makedirs(os.path.dirname(md_path), exist_ok=True)
+    md_path = PROJECT_ROOT / "docs" / "02-data-governance" / "02_supabase_metadata_inventory.md"
+    os.makedirs(md_path.parent, exist_ok=True)
 
     try:
         with engine.connect() as conn:
@@ -78,7 +84,7 @@ def run_data_inventory():
         
         with open(md_path, "w", encoding="utf-8") as f:
             f.write("# 📑 Inventario Técnico de Metadatos (Supabase)\n\n")
-            f.write(f"> **Última sincronización:** {time.strftime('%Y-%m-%d %H:%M:%S')}\n")
+            f.write(f"> **Última sincronización:** {datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')}\n")
             f.write("> **Alcance:** Esquemas `raw` y `business`. Reporte generado automáticamente por el script 90.\n\n")
             for esquema in df_inv['Esquema'].unique():
                 f.write(f"## 📂 Esquema: `{esquema}`\n\n")

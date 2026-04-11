@@ -1,9 +1,14 @@
 import os
 import time
+from pathlib import Path
 from sqlalchemy import create_engine, text
 from dotenv import load_dotenv
 
-load_dotenv('../.env')
+# Resolver ruta absoluta al .env
+ETL_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = ETL_DIR.parent
+env_path = PROJECT_ROOT / ".env"
+load_dotenv(env_path)
 db_url = os.getenv("DATABASE_URL")
 
 def setup_fuerza_laboral():

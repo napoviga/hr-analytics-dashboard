@@ -1,6 +1,6 @@
 # 📑 Inventario Técnico de Metadatos (Supabase)
 
-> **Última sincronización:** 2026-04-09 13:36:28
+> **Última sincronización:** 2026-04-11T06:25:54Z
 > **Alcance:** Esquemas `raw` y `business`. Reporte generado automáticamente por el script 90.
 
 ## 📂 Esquema: `business`
@@ -25,7 +25,7 @@
 
 | Tipo   | Columna         | Dato   |   Completitud % |   Unicos | Muestra                                                             |
 |:-------|:----------------|:-------|----------------:|---------:|:--------------------------------------------------------------------|
-| M-View | snapshot_date   | date   |             100 |       75 | Valores múltiples (+75) | Ej: 2025-09-30, 2024-05-31, 2025-05-31... |
+| M-View | snapshot_date   | date   |             100 |       75 | Valores múltiples (+75) | Ej: 2020-12-31, 2023-04-30, 2025-04-30... |
 | M-View | country_iso3    | text   |             100 |        6 | CHL, COL, ESP, MEX, PER, USA                                        |
 | M-View | department_name | text   |             100 |        5 | Finance, HR, IT, Operations, Sales                                  |
 | M-View | job_level_1     | text   |             100 |        2 | Individual Contributor, Management                                  |
@@ -37,7 +37,7 @@
 
 | Tipo   | Columna         | Dato   |   Completitud % |   Unicos | Muestra                                                             |
 |:-------|:----------------|:-------|----------------:|---------:|:--------------------------------------------------------------------|
-| M-View | snapshot_date   | date   |             100 |       75 | Valores múltiples (+75) | Ej: 2025-09-30, 2024-05-31, 2025-05-31... |
+| M-View | snapshot_date   | date   |             100 |       75 | Valores múltiples (+75) | Ej: 2020-12-31, 2023-04-30, 2025-04-30... |
 | M-View | country_iso3    | text   |             100 |        6 | CHL, COL, ESP, MEX, PER, USA                                        |
 | M-View | department_name | text   |             100 |        5 | Finance, HR, IT, Operations, Sales                                  |
 | M-View | job_level_1     | text   |             100 |        2 | Individual Contributor, Management                                  |
@@ -49,7 +49,7 @@
 
 | Tipo   | Columna         | Dato   |   Completitud % |   Unicos | Muestra                                                             |
 |:-------|:----------------|:-------|----------------:|---------:|:--------------------------------------------------------------------|
-| M-View | snapshot_date   | date   |             100 |       75 | Valores múltiples (+75) | Ej: 2025-09-30, 2024-05-31, 2025-05-31... |
+| M-View | snapshot_date   | date   |             100 |       75 | Valores múltiples (+75) | Ej: 2020-12-31, 2023-04-30, 2025-04-30... |
 | M-View | country_iso3    | text   |             100 |        6 | CHL, COL, ESP, MEX, PER, USA                                        |
 | M-View | department_name | text   |             100 |        5 | Finance, HR, IT, Operations, Sales                                  |
 | M-View | job_level_1     | text   |             100 |        2 | Individual Contributor, Management                                  |
@@ -63,20 +63,20 @@
 
 | Tipo   | Columna         | Dato   |   Completitud % |   Unicos | Muestra                                                             |
 |:-------|:----------------|:-------|----------------:|---------:|:--------------------------------------------------------------------|
-| M-View | snapshot_date   | date   |             100 |       75 | Valores múltiples (+75) | Ej: 2025-09-30, 2024-05-31, 2025-05-31... |
+| M-View | snapshot_date   | date   |             100 |       75 | Valores múltiples (+75) | Ej: 2020-12-31, 2023-04-30, 2025-04-30... |
 | M-View | country_iso3    | text   |             100 |        6 | CHL, COL, ESP, MEX, PER, USA                                        |
 | M-View | department_name | text   |             100 |        5 | Finance, HR, IT, Operations, Sales                                  |
 | M-View | job_level_1     | text   |             100 |        2 | Individual Contributor, Management                                  |
 | M-View | job_level_2     | text   |             100 |        3 | Junior, Lead, Senior                                                |
 | M-View | work_center_id  | text   |             100 |        6 | WC-CHL, WC-COL, WC-ESP, WC-MEX, WC-PER, WC-USA                      |
 | M-View | gender          | text   |             100 |        2 | Female, Male                                                        |
-| M-View | value           | bigint |             100 |       73 | Valores múltiples (+73) | Ej: 13, 34, 18...                         |
+| M-View | value           | bigint |             100 |       73 | Valores múltiples (+73) | Ej: 13, 28, 39...                         |
 
 ### 📊 mv_experience_bubbles
 
 | Tipo   | Columna         | Dato    |   Completitud % |   Unicos | Muestra                                                                                             |
 |:-------|:----------------|:--------|----------------:|---------:|:----------------------------------------------------------------------------------------------------|
-| M-View | snapshot_date   | date    |             100 |       75 | Valores múltiples (+75) | Ej: 2025-09-30, 2024-05-31, 2025-05-31...                                 |
+| M-View | snapshot_date   | date    |             100 |       75 | Valores múltiples (+75) | Ej: 2020-12-31, 2023-04-30, 2025-04-30...                                 |
 | M-View | country_iso3    | text    |             100 |        6 | CHL, COL, ESP, MEX, PER, USA                                                                        |
 | M-View | department_name | text    |             100 |        5 | Finance, HR, IT, Operations, Sales                                                                  |
 | M-View | job_level_1     | text    |             100 |        2 | Individual Contributor, Management                                                                  |
@@ -91,7 +91,7 @@
 
 | Tipo   | Columna              | Dato    |   Completitud % |   Unicos | Muestra                                                             |
 |:-------|:---------------------|:--------|----------------:|---------:|:--------------------------------------------------------------------|
-| M-View | snapshot_date        | date    |             100 |       75 | Valores múltiples (+75) | Ej: 2025-09-30, 2024-05-31, 2025-05-31... |
+| M-View | snapshot_date        | date    |             100 |       75 | Valores múltiples (+75) | Ej: 2020-12-31, 2023-04-30, 2025-04-30... |
 | M-View | country_iso3         | text    |             100 |        6 | CHL, COL, ESP, MEX, PER, USA                                        |
 | M-View | headcount_active     | bigint  |             100 |      221 | Valores múltiples (+221) | Ej: 862, 716, 780...                     |
 | M-View | headcount_terminated | bigint  |             100 |      242 | Valores múltiples (+242) | Ej: 75, 247, 13...                       |
@@ -129,7 +129,7 @@
 | Vista  | manager_employee_id   | integer                  |             100 |      605 | Valores múltiples (+605) | Ej: 1, 1005, 1011...                                                                                                        |
 | Vista  | tenure_months         | numeric                  |             100 |      141 | Valores múltiples (+141) | Ej: 0, 1, 10...                                                                                                             |
 | Vista  | is_active_at_snapshot | boolean                  |             100 |        2 | false, true                                                                                                                                            |
-| Vista  | processed_at          | timestamp with time zone |             100 |        1 | 2026-04-09 18:34:53.107297+00                                                                                                                          |
+| Vista  | processed_at          | timestamp with time zone |             100 |        1 | 2026-04-11 06:24:20.495968+00                                                                                                                          |
 
 ### 📊 v_org_tree_bynapo
 
@@ -154,7 +154,7 @@
 | Tabla  | affects_salary | text                     |             100 |        2 | N, Y                                                                               |
 | Tabla  | affects_job    | text                     |             100 |        2 | N, Y                                                                               |
 | Tabla  | active_flag    | text                     |             100 |        1 | Y                                                                                  |
-| Tabla  | created_at     | timestamp with time zone |             100 |        1 | 2026-04-09 18:34:25.880106+00                                                      |
+| Tabla  | created_at     | timestamp with time zone |             100 |        1 | 2026-04-11 06:11:23.177913+00                                                      |
 
 ### 📊 ibm_hr_landing
 
@@ -236,5 +236,5 @@
 | Tabla  | job_change_flag                 | text                     |           100   |        1 | 0                                                                                                                                                      |
 | Tabla  | exit_interview_completed        | text                     |            15   |        2 | N, Y                                                                                                                                                   |
 | Tabla  | regrettable_loss_flag           | text                     |            15   |        2 | N, Y                                                                                                                                                   |
-| Tabla  | created_at                      | timestamp with time zone |           100   |        1 | 2026-04-09 18:32:09.181864+00                                                                                                                          |
+| Tabla  | created_at                      | timestamp with time zone |           100   |        1 | 2026-04-11 06:08:59.835452+00                                                                                                                          |
 

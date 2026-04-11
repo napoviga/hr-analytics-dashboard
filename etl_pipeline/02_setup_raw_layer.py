@@ -1,15 +1,20 @@
 import os
 import time
+from pathlib import Path
 from sqlalchemy import create_engine, text
 from dotenv import load_dotenv
 
-load_dotenv('../.env')
+# Resolver ruta absoluta al .env
+ETL_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = ETL_DIR.parent
+env_path = PROJECT_ROOT / ".env"
+load_dotenv(env_path)
 db_url = os.getenv("DATABASE_URL")
 
 def setup_raw_enhanced():
     start_time = time.time()
     print("\n" + "="*50)
-    print("🛠️  [ETL 05] CONSTRUYENDO CAPA RAW (byNapo)")
+    print("🛠️  [ETL 02] CONSTRUYENDO CAPA RAW (byNapo)")
     print("="*50)
 
     print("⏳ Ejecutando DDL sobre esquema [raw]...")

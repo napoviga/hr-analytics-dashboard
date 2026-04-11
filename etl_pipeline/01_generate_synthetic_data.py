@@ -39,7 +39,7 @@ def generate_catalogs():
 
 def generate_dataset():
     start_time = time.time()
-    print("\n" + "="*50 + "\n🧬 [ETL 04] GENERACIÓN DE DATASET (CEO FIX)\n" + "="*50)
+    print("\n" + "="*50 + "\n🧬 [ETL 01] GENERACIÓN DE DATASET (CEO FIX)\n" + "="*50)
     
     np.random.seed(CONFIG["RANDOM_SEED"])
     generate_catalogs()
