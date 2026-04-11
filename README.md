@@ -1,8 +1,8 @@
 # 📊 Enterprise HR Analytics Dashboard — GDH Analytics
 
 > **Gestión del Desarrollo Humano** | Plataforma Analítica Enterprise de RRHH
-> 
-> **Última actualización:** 2026-04-11 14:10:27 UTC
+>
+> **Última actualización:** 2026-04-11 14:47:25 UTC
 > **Versión del proyecto:** v0.0.0
 > **Estado:** 🟡 En desarrollo activo
 
@@ -234,7 +234,7 @@ cd hr-analytics-dashboard
 #### 2. Configurar variables de entorno
 
 ```bash
-# Root .env (para ETL Pipeline)
+# Root .env (para ETL)
 echo "DATABASE_URL=postgresql://user:password@host:port/dbname" > .env
 
 # Client .env (para Frontend)
@@ -245,7 +245,7 @@ echo "VITE_SUPABASE_ANON_KEY=your-anon-key-here" >> client/.env
 #### 3. Ejecutar pipeline ETL y frontend
 
 ```bash
-# Terminal 1: Ejecutar ETL Pipeline (genera datos + crea vistas)
+# Terminal 1: Ejecutar ETL Pipeline
 cd etl_pipeline
 python 00_full_run_pipeline.py
 
@@ -644,7 +644,7 @@ El proyecto usa el design system **"Corporate Slate & Blue"**:
 - 🚫 **Prohibido:** `text-black`, `text-gray-900`, `indigo`, `purple`, `violet`, `fuchsia`, `red` puro
 - ✅ Textos principales: `text-slate-800`
 - ✅ Textos secundarios: `text-slate-500`
-- ✅ Acentos: `text-blue-600` / `text-blue-700`
+- ✅ Acentos: `text-blue-700`
 - ✅ Fondos de tarjetas: `bg-white border-slate-200`
 - ✅ Badges: `bg-blue-50`
 
@@ -761,7 +761,7 @@ El proyecto usa el design system **"Corporate Slate & Blue"**:
 
 | Métrica | Valor |
 |---------|-------|
-| **README** | 2026-04-11 14:10:27 UTC |
+| **README** | 2026-04-11 14:47:25 UTC |
 | **Versión del Proyecto** | v0.0.0 (de package.json) |
 | **Estado del Proyecto** | 🟡 En desarrollo activo (2 módulos implementados, 12 pendientes) |
 
@@ -771,6 +771,7 @@ El proyecto usa el design system **"Corporate Slate & Blue"**:
 
 | Fecha | Versión | Cambios Principales | Autor |
 |-------|---------|---------------------|-------|
+| 2026-04-11 14:47:25 UTC | v0.0.0 | README actualizado (Prompt 90). Re-ejecución tras cambios manuales del usuario. Fuentes: 8 documentos + código fuente verificado. | Qwen Code Terminal (Prompt 90) |
 | 2026-04-11 14:10:27 UTC | v0.0.0 | README re-escrito completamente con mejores prácticas 2024-2025. Fuentes: 8 documentos + código. Métricas cruzadas, DB documentada, audit score incluido. | Qwen Code Terminal (Prompt 90) |
 
 > 💡 **Nota:** Este README se actualiza automáticamente con cada ejecución del Prompt 90.

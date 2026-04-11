@@ -17,34 +17,34 @@ Analiza TODO el proyecto y genera una versión actualizada, completa y profesion
 ### Pasos de Ejecución
 
 1. **Lee TODA la documentación de producto (obligatorio):**
-   
+
    **Especificaciones de Producto (`docs/01-product-specs/`):**
    - `01_navigation_sitemap.md` → Árbol completo de navegación con los 13 módulos y 50+ vistas
    - `02_view_logic_specs.md` → Descripción detallada de CADA vista con su metodología (DESC, PRED, ML, etc.)
    - `03_design_system.md` → Paleta de colores, tipografía, arquitectura de vistas, reglas de ECharts
-   
+
    **Propósito:** Extraer la arquitectura de navegación completa, descripciones de negocio de cada vista, y especificaciones de diseño para documentar en el README.
 
 2. **Lee TODA la gobernanza de datos (obligatorio):**
-   
+
    **Gobernanza de Datos (`docs/02-data-governance/`):**
    - `02_supabase_metadata_inventory.md` → Inventario completo de tablas/vistas con columnas, tipos, descripciones, completitud %, valores únicos, sample values
    - `03_data_samples.md` → Muestras reales de datos de las vistas business
-   
+
    **Propósito:** Documentar la arquitectura de base de datos real, columnas principales, calidad de datos, y ejemplos concretos en el README.
 
 3. **Lee TODO el contexto generado por IA (obligatorio):**
-   
+
    **Contenido AI-Generated (`docs/03-ai-generated-content/`):**
    - `01_project_blueprint.md` → Contexto maestro: estructura de directorios, dependencias, arquitectura de datos, pipeline ETL, estado del frontend, variables de entorno, score de madurez
    - `02_data_dictionary.md` → Diccionario de datos completo: linaje, capas raw/business/data marts, funciones RPC, reglas de simulación, diagrama ER
    - `03_audit_report.md` → Reporte de auditoría: hallazgos, score de calidad, seguridad, limpieza de código, buenas prácticas
-   
+
    **Propósito:** Extraer métricas del proyecto, dependencias verificadas, estado real de implementación, y cualquier hallazgo relevante.
 
 4. **Lee el pipeline orden (obligatorio):**
    - `docs/PIPELINE_ORDER.md` → Orden de ejecución, dependencias cruzadas, comandos, reglas de oro, nomenclatura
-   
+
    **Propósito:** Documentar correctamente el flujo ETL y las dependencias entre scripts.
 
 5. **Lee archivos de configuración:**
@@ -93,7 +93,7 @@ El README debe seguir esta estructura profesional basada en mejores prácticas 2
 # 📊 Enterprise HR Analytics Dashboard — GDH Analytics
 
 > **Gestión del Desarrollo Humano** | Plataforma Analítica Enterprise de RRHH
-> 
+>
 > **Última actualización:** {fecha y hora actual en formato: YYYY-MM-DD HH:mm:ss UTC}
 > **Versión del proyecto:** v{detectar de package.json o asignar 1.0.0}
 > **Estado:** 🟢 Activo / 🟡 En desarrollo / 🔴 Experimental
@@ -102,7 +102,6 @@ El README debe seguir esta estructura profesional basada en mejores prácticas 2
 
 ## 📑 Tabla de Contenidos
 
-<!-- Generar tabla de contenidos con enlaces internos -->
 - [Visión General](#-visión-general)
 - [Stack Tecnológico](#-stack-tecnológico)
 - [Arquitectura del Sistema](#-arquitectura-del-sistema)
@@ -114,6 +113,7 @@ El README debe seguir esta estructura profesional basada en mejores prácticas 2
 - [Base de Datos](#-base-de-datos)
 - [Documentación](#-documentación)
 - [Contribuir](#-contribuir)
+- [Sobre el Desarrollador](#-sobre-el-desarrollador)
 - [Licencia](#-licencia)
 - [Historial de Actualizaciones](#-historial-de-actualizaciones)
 
@@ -122,6 +122,7 @@ El README debe seguir esta estructura profesional basada en mejores prácticas 2
 ## 🎯 Visión General
 
 {Descripción concisa de 2-3 párrafos explicando:}
+
 - Qué es este proyecto (plataforma analítica de RRHH enterprise - GDH Analytics)
 - Qué problema resuelve (visualización y análisis integral de datos de recursos humanos)
 - A quién va dirigido (equipos de GDH, analistas, directivos, HR Business Partners)
@@ -137,31 +138,31 @@ El README debe seguir esta estructura profesional basada en mejores prácticas 2
 
 ### Frontend (SPA - React)
 
-| Tecnología | Versión | Propósito |
-|-----------|---------|-----------|
-| React | {versión} | Framework UI |
-| Vite | {versión} | Build tool |
-| Tailwind CSS | {versión} | Estilos |
-| Apache ECharts | {versión} | Visualización de datos |
+| Tecnología            | Versión   | Propósito                |
+| --------------------- | --------- | ------------------------ |
+| React                 | {versión} | Framework UI             |
+| Vite                  | {versión} | Build tool               |
+| Tailwind CSS          | {versión} | Estilos                  |
+| Apache ECharts        | {versión} | Visualización de datos   |
 | @supabase/supabase-js | {versión} | Cliente de base de datos |
-| Lucide-React | {versión} | Iconografía corporativa |
+| Lucide-React          | {versión} | Iconografía corporativa  |
 
 ### Backend & Data Engineering (Python)
 
-| Tecnología | Versión | Propósito |
-|-----------|---------|-----------|
-| Python | 3.11+ | Lenguaje ETL |
-| Pandas | {versión} | Manipulación de datos |
-| SQLAlchemy | {versión} | ORM para Supabase |
-| NumPy | {versión} | Cálculos numéricos |
+| Tecnología | Versión   | Propósito             |
+| ---------- | --------- | --------------------- |
+| Python     | 3.11+     | Lenguaje ETL          |
+| Pandas     | {versión} | Manipulación de datos |
+| SQLAlchemy | {versión} | ORM para Supabase     |
+| NumPy      | {versión} | Cálculos numéricos    |
 
 ### Base de Datos & Infraestructura
 
-| Tecnología | Propósito |
-|-----------|-----------|
-| Supabase (PostgreSQL) | Base de datos principal |
-| PostgREST | API automática |
-| Materialized Views | Vistas materializadas para rendimiento |
+| Tecnología            | Propósito                              |
+| --------------------- | -------------------------------------- |
+| Supabase (PostgreSQL) | Base de datos principal                |
+| PostgREST             | API automática                         |
+| Materialized Views    | Vistas materializadas para rendimiento |
 
 ---
 
@@ -169,37 +170,37 @@ El README debe seguir esta estructura profesional basada en mejores prácticas 2
 
 ### Diagrama de Arquitectura
 
-```
+\`\`\`
 ┌─────────────────────────────────────────────────────────────┐
-│                    FRONTEND (React + Vite)                   │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────────┐  │
-│  │   Sidebar    │  │   Dashboard  │  │  ECharts Graphs  │  │
-│  │  Navigation  │  │   Views      │  │  Visualizations  │  │
-│  └──────────────┘  └──────────────┘  └──────────────────┘  │
+│ FRONTEND (React + Vite) │
+│ ┌──────────────┐ ┌──────────────┐ ┌──────────────────┐ │
+│ │ Sidebar │ │ Dashboard │ │ ECharts Graphs │ │
+│ │ Navigation │ │ Views │ │ Visualizations │ │
+│ └──────────────┘ └──────────────┘ └──────────────────┘ │
 └────────────────────────────┬────────────────────────────────┘
-                             │
-                             │ Supabase JS Client
-                             │ (Direct connection)
-                             ▼
+│
+│ Supabase JS Client
+│ (Direct connection)
+▼
 ┌─────────────────────────────────────────────────────────────┐
-│                  DATABASE (Supabase/PostgreSQL)              │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────────┐  │
-│  │  RAW Schema  │  │  Business    │  │   Data Marts     │  │
-│  │  (Bronze)    │  │  Schema      │  │   (Gold)         │  │
-│  │              │  │  (Silver)    │  │   + RPC Funcs    │  │
-│  └──────────────┘  └──────────────┘  └──────────────────┘  │
+│ DATABASE (Supabase/PostgreSQL) │
+│ ┌──────────────┐ ┌──────────────┐ ┌──────────────────┐ │
+│ │ RAW Schema │ │ Business │ │ Data Marts │ │
+│ │ (Bronze) │ │ Schema │ │ (Gold) │ │
+│ │ │ │ (Silver) │ │ + RPC Funcs │ │
+│ └──────────────┘ └──────────────┘ └──────────────────┘ │
 └────────────────────────────┬────────────────────────────────┘
-                             │
-                             │ Python + SQLAlchemy
-                             ▼
+│
+│ Python + SQLAlchemy
+▼
 ┌─────────────────────────────────────────────────────────────┐
-│                    ETL PIPELINE (Python)                     │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────────┐  │
-│  │  Data Gen    │  │  Data Ingest │  │  Transform &     │  │
-│  │  (Synthetic) │  │  (CSV→Raw)   │  │  Business Logic  │  │
-│  └──────────────┘  └──────────────┘  └──────────────────┘  │
+│ ETL PIPELINE (Python) │
+│ ┌──────────────┐ ┌──────────────┐ ┌──────────────────┐ │
+│ │ Data Gen │ │ Data Ingest │ │ Transform & │ │
+│ │ (Synthetic) │ │ (CSV→Raw) │ │ Business Logic │ │
+│ └──────────────┘ └──────────────┘ └──────────────────┘ │
 └─────────────────────────────────────────────────────────────┘
-```
+\`\`\`
 
 ### Patrones de Arquitectura
 
@@ -220,11 +221,11 @@ El sistema cuenta con **13 módulos principales** y **50+ vistas analíticas**:
 {Cruzar con App.jsx y blueprint para verificar qué está realmente implementado}
 {Usar tags de view_logic_specs.md para cada vista}
 
-| # | Módulo | Vistas Implementadas | Estado | Tags |
-|---|--------|---------------------|--------|------|
-| 01 | Visión Ejecutiva | Dashboard C-Level, Alertas, Benchmarking | 🟡 Parcial | DESC, PRED, ML |
-| 02 | Reclutamiento & Selección | Eficiencia, Calidad, Fit Score, Auditoría, NPS | 🔘 Pendiente | DESC, PRED, ML |
-| ... | ... | ... | ... | ... |
+| #   | Módulo                    | Vistas Implementadas                           | Estado       | Tags           |
+| --- | ------------------------- | ---------------------------------------------- | ------------ | -------------- |
+| 01  | Visión Ejecutiva          | Dashboard C-Level, Alertas, Benchmarking       | 🟡 Parcial   | DESC, PRED, ML |
+| 02  | Reclutamiento & Selección | Eficiencia, Calidad, Fit Score, Auditoría, NPS | 🔘 Pendiente | DESC, PRED, ML |
+| ... | ...                       | ...                                            | ...          | ...            |
 
 {NOTA: Extraer TODAS las vistas de docs/01-product-specs/01_navigation_sitemap.md}
 {NOTA: Verificar estado real en docs/03-ai-generated-content/01_project_blueprint.md}
@@ -232,15 +233,15 @@ El sistema cuenta con **13 módulos principales** y **50+ vistas analíticas**:
 
 ### Leyenda de Tags
 
-| Tag | Significado | Descripción |
-|-----|------------|-------------|
-| DESC | Descriptivo | Análisis descriptivo y visualización |
-| PRED | Predictivo | Modelos predictivos y forecasting |
-| ML | Machine Learning | Algoritmos de aprendizaje automático |
-| IA | Generative AI | Inteligencia artificial generativa |
-| NLP | Natural Language Processing | Procesamiento de lenguaje natural |
-| OPT | Optimization | Optimización de procesos |
-| XAI | Explainable AI | IA explicable y transparente |
+| Tag  | Significado                 | Descripción                          |
+| ---- | --------------------------- | ------------------------------------ |
+| DESC | Descriptivo                 | Análisis descriptivo y visualización |
+| PRED | Predictivo                  | Modelos predictivos y forecasting    |
+| ML   | Machine Learning            | Algoritmos de aprendizaje automático |
+| IA   | Generative AI               | Inteligencia artificial generativa   |
+| NLP  | Natural Language Processing | Procesamiento de lenguaje natural    |
+| OPT  | Optimization                | Optimización de procesos             |
+| XAI  | Explainable AI              | IA explicable y transparente         |
 
 {Tags completos de docs/01-product-specs/02_view_logic_specs.md}
 
@@ -259,39 +260,45 @@ El sistema cuenta con **13 módulos principales** y **50+ vistas analíticas**:
 
 #### 1. Clonar el repositorio
 
-```bash
+\`\`\`bash
 git clone <repository-url>
 cd hr-analytics-dashboard
-```
+\`\`\`
 
 #### 2. Configurar variables de entorno
 
-```bash
+\`\`\`bash
+
 # Root .env (para ETL)
+
 echo "DATABASE_URL=postgresql://user:password@host:port/dbname" > .env
 
 # Client .env (para Frontend)
-echo "VITE_SUPABASE_URL=https://your-project.supabase.co" > client/.env
+
+echo "VITE_SUPABASE_URL=[https://your-project.supabase.co](https://your-project.supabase.co)" > client/.env
 echo "VITE_SUPABASE_ANON_KEY=your-anon-key-here" >> client/.env
-```
+\`\`\`
 
 #### 3. Ejecutar pipeline ETL y frontend
 
-```bash
+\`\`\`bash
+
 # Terminal 1: Ejecutar ETL Pipeline
+
 cd etl_pipeline
 python 00_full_run_pipeline.py
 
 # Terminal 2: Iniciar Frontend (en otro terminal)
+
 cd client
 npm install
 npm run dev
-```
+\`\`\`
 
 ### Verificación
 
 - **Frontend:** http://localhost:5173
-- **Supabase Dashboard:** https://app.supabase.com/project/YOUR_PROJECT
+- **Supabase Dashboard:** [https://app.supabase.com/project/YOUR_PROJECT](https://app.supabase.com/project/YOUR_PROJECT)
 - **Estado del Pipeline:** Verificar logs en consola con ✅ completado
 
 ---
@@ -302,48 +309,56 @@ npm run dev
 
 #### Backend (ETL Pipeline)
 
-```bash
+\`\`\`bash
+
 # Crear entorno virtual (recomendado)
+
 cd etl_pipeline
 python -m venv .venv
 
 # Activar entorno
+
 # Windows:
+
 .venv\Scripts\activate
+
 # Linux/Mac:
+
 source .venv/bin/activate
 
 # Instalar dependencias Python
+
 pip install pandas numpy sqlalchemy python-dotenv
-```
+\`\`\`
 
 #### Frontend (React SPA)
 
-```bash
+\`\`\`bash
 cd client
 npm install
 
 # Scripts disponibles:
-npm run dev      # Desarrollo (con hot reload)
-npm run build    # Build de producción
-npm run preview  # Preview del build
-npm run lint     # Linting con ESLint
-```
+
+npm run dev # Desarrollo (con hot reload)
+npm run build # Build de producción
+npm run preview # Preview del build
+npm run lint # Linting con ESLint
+\`\`\`
 
 ### Variables de Entorno
 
 #### Root `.env` (ETL Pipeline)
 
-| Variable | Descripción | Ejemplo |
-|----------|------------|---------|
+| Variable       | Descripción                | Ejemplo                                               |
+| -------------- | -------------------------- | ----------------------------------------------------- |
 | `DATABASE_URL` | URL de conexión a Supabase | `postgresql://user:pass@db.supabase.co:5432/postgres` |
 
 #### Client `.env` o `.env.local` (Frontend)
 
-| Variable | Descripción | Ejemplo |
-|----------|------------|---------|
-| `VITE_SUPABASE_URL` | URL del proyecto Supabase | `https://xyz.supabase.co` |
-| `VITE_SUPABASE_ANON_KEY` | Clave pública de Supabase | `eyJ...` |
+| Variable                 | Descripción               | Ejemplo                   |
+| ------------------------ | ------------------------- | ------------------------- |
+| `VITE_SUPABASE_URL`      | URL del proyecto Supabase | `https://xyz.supabase.co` |
+| `VITE_SUPABASE_ANON_KEY` | Clave pública de Supabase | `eyJ...`                  |
 
 > ⚠️ **Importante:** Nunca commitear archivos `.env` al repositorio. Usar `.env.example` como plantilla.
 
@@ -360,28 +375,28 @@ npm run lint     # Linting con ESLint
 
 El pipeline de datos se ejecuta con un solo comando y sigue un orden estricto:
 
-```bash
+\`\`\`bash
 cd etl_pipeline
 python 00_full_run_pipeline.py
-```
+\`\`\`
 
 ### Secuencia de Ejecución
 
-| Paso | Script | Función | Output |
-|------|--------|---------|--------|
-| 01 | `generate_synthetic_data.py` | Genera datos sintéticos HR | CSVs en `/data` |
-| 02 | `setup_raw_layer.py` | Crea tablas raw | `raw.*` en Supabase |
-| 03 | `ingest_data.py` | Carga CSV a raw | Datos en `raw.*` |
-| 04 | `setup_business_core.py` | Crea vistas business | `business.v_employee_*`, `business.mv_*` |
-| m05 | `m05_fuerza_laboral.py` | Data mart fuerza laboral | 6 MVs + 1 vista + 2 RPCs |
-| 90 | `generate_data_inventory.py` | Inventario de metadatos | `docs/02-data-governance/*.md` |
-| 91 | `export_data_samples.py` | Export de muestras | `docs/02-data-governance/*.md` |
+| Paso | Script                       | Función                    | Output                                   |
+| ---- | ---------------------------- | -------------------------- | ---------------------------------------- |
+| 01   | `generate_synthetic_data.py` | Genera datos sintéticos HR | CSVs en `/data`                          |
+| 02   | `setup_raw_layer.py`         | Crea tablas raw            | `raw.*` en Supabase                      |
+| 03   | `ingest_data.py`             | Carga CSV a raw            | Datos en `raw.*`                         |
+| 04   | `setup_business_core.py`     | Crea vistas business       | `business.v_employee_*`, `business.mv_*` |
+| m05  | `m05_fuerza_laboral.py`      | Data mart fuerza laboral   | 6 MVs + 1 vista + 2 RPCs                 |
+| 90   | `generate_data_inventory.py` | Inventario de metadatos    | `docs/02-data-governance/*.md`           |
+| 91   | `export_data_samples.py`     | Export de muestras         | `docs/02-data-governance/*.md`           |
 
 ### Dependencias del Pipeline
 
-```
+\`\`\`
 01 (DataGen) → 02 (Raw Schema) → 03 (Ingest) → 04 (Business Views) → m05 (Data Marts) → 90/91 (Docs)
-```
+\`\`\`
 
 > 📋 Para más detalles: Ver `docs/PIPELINE_ORDER.md`
 
@@ -389,62 +404,62 @@ python 00_full_run_pipeline.py
 
 ## 📁 Estructura del Proyecto
 
-```
+\`\`\`
 hr-analytics-dashboard/
 │
-├── 📂 client/                          # Frontend SPA (React + Vite)
-│   ├── 📂 src/
-│   │   ├── 📂 modules/                 # Módulos por funcionalidad
-│   │   │   ├── 00-layout/              # Componentes de layout
-│   │   │   ├── 05-fuerza-laboral/      # Módulo fuerza laboral
-│   │   │   ├── 06-nomina-costos/       # Módulo nómina
-│   │   │   └── ...                     # Otros módulos
-│   │   ├── 📂 config/
-│   │   │   └── navigation.js           # Configuración de navegación
-│   │   ├── 📂 lib/
-│   │   │   └── supabaseClient.js       # Cliente Supabase
-│   │   ├── App.jsx                     # Componente principal
-│   │   └── main.jsx                    # Entry point
-│   ├── 📂 public/                      # Assets estáticos
-│   ├── package.json
-│   ├── vite.config.js
-│   └── eslint.config.js
+├── 📂 client/ # Frontend SPA (React + Vite)
+│ ├── 📂 src/
+│ │ ├── 📂 modules/ # Módulos por funcionalidad
+│ │ │ ├── 00-layout/ # Componentes de layout
+│ │ │ ├── 05-fuerza-laboral/ # Módulo fuerza laboral
+│ │ │ ├── 06-nomina-costos/ # Módulo nómina
+│ │ │ └── ... # Otros módulos
+│ │ ├── 📂 config/
+│ │ │ └── navigation.js # Configuración de navegación
+│ │ ├── 📂 lib/
+│ │ │ └── supabaseClient.js # Cliente Supabase
+│ │ ├── App.jsx # Componente principal
+│ │ └── main.jsx # Entry point
+│ ├── 📂 public/ # Assets estáticos
+│ ├── package.json
+│ ├── vite.config.js
+│ └── eslint.config.js
 │
-├── 📂 etl_pipeline/                    # Scripts ETL (Python)
-│   ├── 00_full_run_pipeline.py         # Orquestador maestro
-│   ├── 01_generate_synthetic_data.py   # Generación de datos
-│   ├── 02_setup_raw_layer.py           # Schema raw
-│   ├── 03_ingest_data.py               # Ingesta de datos
-│   ├── 04_setup_business_core.py       # Vistas business
-│   ├── m05_fuerza_laboral.py           # Data mart
-│   ├── 90_generate_data_inventory.py   # Metadata inventory
-│   └── 91_export_data_samples.py       # Data samples
+├── 📂 etl_pipeline/ # Scripts ETL (Python)
+│ ├── 00_full_run_pipeline.py # Orquestador maestro
+│ ├── 01_generate_synthetic_data.py # Generación de datos
+│ ├── 02_setup_raw_layer.py # Schema raw
+│ ├── 03_ingest_data.py # Ingesta de datos
+│ ├── 04_setup_business_core.py # Vistas business
+│ ├── m05_fuerza_laboral.py # Data mart
+│ ├── 90_generate_data_inventory.py # Metadata inventory
+│ └── 91_export_data_samples.py # Data samples
 │
-├── 📂 data/                            # Datos crudos (gitignored)
-│   └── *.csv
+├── 📂 data/ # Datos crudos (gitignored)
+│ └── \*.csv
 │
-├── 📂 docs/                            # Documentación
-│   ├── 📂 01-product-specs/            # Especificaciones de producto
-│   │   ├── 01_navigation_sitemap.md
-│   │   ├── 02_view_logic_specs.md
-│   │   └── 03_design_system.md
-│   ├── 📂 02-data-governance/          # Gobernanza de datos
-│   │   ├── 02_supabase_metadata_inventory.md
-│   │   └── 03_data_samples.md
-│   ├── 📂 03-ai-generated-content/     # Contenido generado por IA
-│   │   ├── 01_project_blueprint.md
-│   │   ├── 02_data_dictionary.md
-│   │   └── 03_audit_report.md
-│   ├── 📂 prompts/                     # Prompts para Qwen Code
-│   │   ├── 00. Blueprint & Context.md
-│   │   ├── 01. Data Dictionary.md
-│   │   └── 02. Audit & Linting.md
-│   └── PIPELINE_ORDER.md
+├── 📂 docs/ # Documentación
+│ ├── 📂 01-product-specs/ # Especificaciones de producto
+│ │ ├── 01_navigation_sitemap.md
+│ │ ├── 02_view_logic_specs.md
+│ │ └── 03_design_system.md
+│ ├── 📂 02-data-governance/ # Gobernanza de datos
+│ │ ├── 02_supabase_metadata_inventory.md
+│ │ └── 03_data_samples.md
+│ ├── 📂 03-ai-generated-content/ # Contenido generado por IA
+│ │ ├── 01_project_blueprint.md
+│ │ ├── 02_data_dictionary.md
+│ │ └── 03_audit_report.md
+│ ├── 📂 prompts/ # Prompts para Qwen Code
+│ │ ├── 00. Blueprint & Context.md
+│ │ ├── 01. Data Dictionary.md
+│ │ └── 02. Audit & Linting.md
+│ └── PIPELINE_ORDER.md
 │
-├── .gitignore                          # Reglas de exclusión
-├── .env                                # Variables de entorno (gitignored)
-└── README.md                           # Este documento
-```
+├── .gitignore # Reglas de exclusión
+├── .env # Variables de entorno (gitignored)
+└── README.md # Este documento
+\`\`\`
 
 ---
 
@@ -511,12 +526,14 @@ hr-analytics-dashboard/
 ### Calidad de Datos
 
 {Si existe docs/02-data-governance/02_supabase_metadata_inventory.md, agregar:}
+
 - **Tablas/Vistas documentadas:** {X}
 - **Columnas con completitud >90%:** {X}%
 - **Columnas con valores únicos destacados:** {X}
 - **Muestras de datos verificadas:** Sí/No
 
 {Si existe docs/02-data-governance/03_data_samples.md, mencionar:}
+
 - **Muestras de datos exportadas:** Sí (ver archivo de samples)
 
 ---
@@ -525,36 +542,38 @@ hr-analytics-dashboard/
 
 ### Documentación del Producto (Manual)
 
-| Documento | Ubicación | Descripción |
-|-----------|----------|-------------|
-| Navegación & Sitemap | `docs/01-product-specs/01_navigation_sitemap.md` | Árbol completo de 13 módulos y 50+ vistas |
-| Lógica de Vistas | `docs/01-product-specs/02_view_logic_specs.md` | Specs detalladas por vista con tags (DESC, PRED, ML, etc.) |
-| Design System | `docs/01-product-specs/03_design_system.md` | Guía de estilos: paleta Corporate Slate & Blue, tipografía, arquitectura de vistas, reglas ECharts |
+| Documento            | Ubicación                                        | Descripción                                                                                        |
+| -------------------- | ------------------------------------------------ | -------------------------------------------------------------------------------------------------- |
+| Navegación & Sitemap | `docs/01-product-specs/01_navigation_sitemap.md` | Árbol completo de 13 módulos y 50+ vistas                                                          |
+| Lógica de Vistas     | `docs/01-product-specs/02_view_logic_specs.md`   | Specs detalladas por vista con tags (DESC, PRED, ML, etc.)                                         |
+| Design System        | `docs/01-product-specs/03_design_system.md`      | Guía de estilos: paleta Corporate Slate & Blue, tipografía, arquitectura de vistas, reglas ECharts |
 
 ### Gobernanza de Datos (Auto-generada por scripts Python)
 
-| Documento | Generado Por | Descripción |
-|-----------|-------------|-------------|
+| Documento          | Generado Por                             | Descripción                                                                                                  |
+| ------------------ | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
 | Metadata Inventory | Script 90 (`generate_data_inventory.py`) | Inventario completo de tablas/vistas: columnas, tipos, descripciones, completitud %, valores únicos, samples |
-| Data Samples | Script 91 (`export_data_samples.py`) | Muestras reales de datos de las vistas business |
+| Data Samples       | Script 91 (`export_data_samples.py`)     | Muestras reales de datos de las vistas business                                                              |
 
 ### Contenido Generado por IA (Qwen Code Terminal)
 
-| Documento | Prompt | Descripción |
-|-----------|--------|-------------|
+| Documento         | Prompt    | Descripción                                                                                                                              |
+| ----------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | Project Blueprint | Prompt 00 | Contexto maestro: estructura, dependencias, arquitectura de datos, pipeline ETL, estado frontend, variables de entorno, score de madurez |
-| Data Dictionary | Prompt 01 | Diccionario de datos completo: linaje, capas raw/business/data marts, funciones RPC, reglas de simulación, diagrama ER |
-| Audit Report | Prompt 02 | Auditoría completa: hallazgos, score de calidad, seguridad, limpieza de código, buenas prácticas, correcciones |
+| Data Dictionary   | Prompt 01 | Diccionario de datos completo: linaje, capas raw/business/data marts, funciones RPC, reglas de simulación, diagrama ER                   |
+| Audit Report      | Prompt 02 | Auditoría completa: hallazgos, score de calidad, seguridad, limpieza de código, buenas prácticas, correcciones                           |
 
 ### Ejecutar Prompts de Documentación
 
-```bash
+\`\`\`bash
+
 # Desde la terminal de Qwen Code:
+
 "Ejecuta el prompt 00 para generar el Blueprint"
 "Ejecuta el prompt 01 para generar el Data Dictionary"
 "Ejecuta el prompt 02 para generar el Audit Report"
-"Ejecuta el prompt 90 para actualizar el README"  # ← Este prompt
-```
+"Ejecuta el prompt 90 para actualizar el README" # ← Este prompt
+\`\`\`
 
 > 📋 Para orden de ejecución completo y dependencias: Ver `docs/PIPELINE_ORDER.md`
 
@@ -588,6 +607,23 @@ hr-analytics-dashboard/
 
 ---
 
+## 👨‍💻 Sobre el Desarrollador
+
+**Jesús Napoleón "Napo" Villegas Gálvez**
+_Data Engineer & AI Specialist | Corporate Data Architect_
+
+Profesional híbrido especializado en traducir operaciones de negocio complejas en arquitecturas de datos escalables. Con formación en gestión corporativa y actualmente cursando una Maestría en Data Analytics & Inteligencia Artificial (ESAN), diseño soluciones integrales (Data Mesh, ETL, predicción ML) que impactan directamente en la rentabilidad de las empresas.
+
+Aunque este proyecto es un _showcase_ aplicado a People Analytics, mi trayectoria abarca el diseño de pipelines y modelos analíticos para operaciones críticas a nivel LatAm en sectores como **Finanzas, Contabilidad, Producción y Energía**. Mi enfoque es entender la lógica del negocio desde adentro para construir herramientas Full-Stack que transformen datos crudos en decisiones ejecutivas de alto impacto.
+
+- 📍 **Ubicación:** Lima, Perú
+- 💼 **Rol Actual:** Especialista de Datos Corporativo en SMI (Grupo Intercorp)
+- ✉️ **Contacto:** jesus.villegas@outlook.com
+- 🔗 **LinkedIn:** [jesusvillegasg](https://www.linkedin.com/in/jesusvillegasg/)
+- 🛠️ **Stack Técnico:** Python, SQL, React, Power BI, GCP, Supabase, automatización RPA y SAP.
+
+---
+
 ## 📄 Licencia
 
 [ESPECIFICAR LICENCIA — MIT, Apache 2.0, etc.]
@@ -608,218 +644,91 @@ hr-analytics-dashboard/
 
 ### Alcance Funcional
 
-| Métrica | Valor | Fuente |
-|---------|-------|--------|
-| **Módulos Totales** | 13 | `docs/01-product-specs/01_navigation_sitemap.md` |
-| **Módulos Implementados** | {X} | `client/src/App.jsx` + `docs/03-ai-generated-content/01_project_blueprint.md` |
-| **Vistas Totales** | {50+} | `docs/01-product-specs/01_navigation_sitemap.md` |
-| **Vistas Implementadas** | {X} | `client/src/App.jsx` + blueprint |
-| **Vistas en Progreso** | {X} | blueprint |
-| **Tags Utilizados** | DESC, PRED, ML, IA, NLP, OPT, XAI | `docs/01-product-specs/02_view_logic_specs.md` |
+| Métrica                   | Valor                             | Fuente                                                                        |
+| ------------------------- | --------------------------------- | ----------------------------------------------------------------------------- |
+| **Módulos Totales**       | 13                                | `docs/01-product-specs/01_navigation_sitemap.md`                              |
+| **Módulos Implementados** | {X}                               | `client/src/App.jsx` + `docs/03-ai-generated-content/01_project_blueprint.md` |
+| **Vistas Totales**        | {50+}                             | `docs/01-product-specs/01_navigation_sitemap.md`                              |
+| **Vistas Implementadas**  | {X}                               | `client/src/App.jsx` + blueprint                                              |
+| **Vistas en Progreso**    | {X}                               | blueprint                                                                     |
+| **Tags Utilizados**       | DESC, PRED, ML, IA, NLP, OPT, XAI | `docs/01-product-specs/02_view_logic_specs.md`                                |
 
 ### Pipeline ETL
 
-| Métrica | Valor | Fuente |
-|---------|-------|--------|
-| **Scripts ETL** | {8} | `etl_pipeline/` + `docs/PIPELINE_ORDER.md` |
-| **Capas de Datos** | 3 (Raw, Business, Data Marts) | `docs/03-ai-generated-content/02_data_dictionary.md` |
-| **Tablas Raw** | {2} | `docs/02-data-governance/02_supabase_metadata_inventory.md` |
-| **Vistas Business** | {2} | metadata_inventory |
-| **Data Marts (m05)** | {7 MVs + 1 vista + 2 RPCs} | metadata_inventory + data_dictionary |
-| **Países** | 6 (PER, CHL, COL, MEX, ESP, USA) | `docs/03-ai-generated-content/01_project_blueprint.md` |
-| **Departamentos** | 5 (IT, Sales, HR, Finance, Operations) | blueprint |
-| **Período de Datos** | Ene 2020 — Mar 2026 (75 meses) | blueprint |
-| **Empleados/Mes** | ~4,000-6,000 | blueprint |
+| Métrica              | Valor                                  | Fuente                                                      |
+| -------------------- | -------------------------------------- | ----------------------------------------------------------- |
+| **Scripts ETL**      | {8}                                    | `etl_pipeline/` + `docs/PIPELINE_ORDER.md`                  |
+| **Capas de Datos**   | 3 (Raw, Business, Data Marts)          | `docs/03-ai-generated-content/02_data_dictionary.md`        |
+| **Tablas Raw**       | {2}                                    | `docs/02-data-governance/02_supabase_metadata_inventory.md` |
+| **Vistas Business**  | {2}                                    | metadata_inventory                                          |
+| **Data Marts (m05)** | {7 MVs + 1 vista + 2 RPCs}             | metadata_inventory + data_dictionary                        |
+| **Países**           | 6 (PER, CHL, COL, MEX, ESP, USA)       | `docs/03-ai-generated-content/01_project_blueprint.md`      |
+| **Departamentos**    | 5 (IT, Sales, HR, Finance, Operations) | blueprint                                                   |
+| **Período de Datos** | Ene 2020 — Mar 2026 (75 meses)         | blueprint                                                   |
+| **Empleados/Mes**    | ~4,000-6,000                           | blueprint                                                   |
 
 ### Stack Tecnológico
 
-| Métrica | Valor | Fuente |
-|---------|-------|--------|
-| **Dependencias Frontend (prod)** | {X} | `client/package.json` |
-| **Dependencias Frontend (dev)** | {Y} | `client/package.json` |
-| **Dependencias Backend (Python)** | Pandas, NumPy, SQLAlchemy | blueprint + scripts |
-| **Framework UI** | React {versión} + Vite {versión} | package.json |
-| **Visualización** | Apache ECharts {versión} | package.json |
-| **Database** | Supabase (PostgreSQL) | blueprint |
+| Métrica                           | Valor                            | Fuente                |
+| --------------------------------- | -------------------------------- | --------------------- |
+| **Dependencias Frontend (prod)**  | {X}                              | `client/package.json` |
+| **Dependencias Frontend (dev)**   | {Y}                              | `client/package.json` |
+| **Dependencias Backend (Python)** | Pandas, NumPy, SQLAlchemy        | blueprint + scripts   |
+| **Framework UI**                  | React {versión} + Vite {versión} | package.json          |
+| **Visualización**                 | Apache ECharts {versión}         | package.json          |
+| **Database**                      | Supabase (PostgreSQL)            | blueprint             |
 
 ### Calidad del Código
 
 {Si existe docs/03-ai-generated-content/03_audit_report.md, agregar:}
 
-| Métrica | Valor | Fuente |
-|---------|-------|--------|
-| **Score de Calidad** | {XX/100} | `docs/03-ai-generated-content/03_audit_report.md` |
-| **Hallazgos Críticos** | {X} 🔴 | audit_report |
-| **Advertencias** | {Y} 🟡 | audit_report |
-| **Sugerencias** | {Z} 🟢 | audit_report |
-| **Issues Resuueltos** | {X} | audit_report |
+| Métrica                | Valor    | Fuente                                            |
+| ---------------------- | -------- | ------------------------------------------------- |
+| **Score de Calidad**   | {XX/100} | `docs/03-ai-generated-content/03_audit_report.md` |
+| **Hallazgos Críticos** | {X} 🔴   | audit_report                                      |
+| **Advertencias**       | {Y} 🟡   | audit_report                                      |
+| **Sugerencias**        | {Z} 🟢   | audit_report                                      |
+| **Issues Resuueltos**  | {X}      | audit_report                                      |
 
 ### Cobertura de Documentación
 
-| Métrica | Valor | Fuente |
-|---------|-------|--------|
-| **Product Specs** | ✅ Completos | `docs/01-product-specs/` (3 archivos) |
-| **Data Governance** | ✅ Generada | `docs/02-data-governance/` (2 archivos) |
-| **AI-Generated Content** | {✅/⚠️} | `docs/03-ai-generated-content/` ({X}/3 archivos) |
-| **Blueprint** | {✅/⚠️} | {fecha si existe} |
-| **Data Dictionary** | {✅/⚠️} | {fecha si existe} |
-| **Audit Report** | {✅/⚠️} | {fecha si existe} |
-| **Pipeline Order** | ✅ Actualizado | `docs/PIPELINE_ORDER.md` |
+| Métrica                  | Valor          | Fuente                                           |
+| ------------------------ | -------------- | ------------------------------------------------ |
+| **Product Specs**        | ✅ Completos   | `docs/01-product-specs/` (3 archivos)            |
+| **Data Governance**      | ✅ Generada    | `docs/02-data-governance/` (2 archivos)          |
+| **AI-Generated Content** | {✅/⚠️}        | `docs/03-ai-generated-content/` ({X}/3 archivos) |
+| **Blueprint**            | {✅/⚠️}        | {fecha si existe}                                |
+| **Data Dictionary**      | {✅/⚠️}        | {fecha si existe}                                |
+| **Audit Report**         | {✅/⚠️}        | {fecha si existe}                                |
+| **Pipeline Order**       | ✅ Actualizado | `docs/PIPELINE_ORDER.md`                         |
 
 ### Última Actualización
 
-| Métrica | Valor |
-|---------|-------|
-| **README** | {fecha y hora actual: YYYY-MM-DD HH:mm:ss UTC} |
-| **Versión del Proyecto** | {detectar de package.json o asignar 1.0.0} |
-| **Estado del Proyecto** | 🟢 Activo / 🟡 En desarrollo / 🔴 Experimental |
+| Métrica                  | Valor                                          |
+| ------------------------ | ---------------------------------------------- |
+| **README**               | {fecha y hora actual: YYYY-MM-DD HH:mm:ss UTC} |
+| **Versión del Proyecto** | {detectar de package.json o asignar 1.0.0}     |
+| **Estado del Proyecto**  | 🟢 Activo / 🟡 En desarrollo / 🔴 Experimental |
 
 ---
 
 ## 📝 Historial de Actualizaciones
 
-| Fecha | Versión | Cambios Principales | Autor |
-|-------|---------|---------------------|-------|
+| Fecha          | Versión   | Cambios Principales                                | Autor              |
+| -------------- | --------- | -------------------------------------------------- | ------------------ |
 | {fecha actual} | {versión} | README actualizado con mejores prácticas 2024-2025 | Qwen Code Terminal |
-| ... | ... | ... | ... |
+| ...            | ...       | ...                                                | ...                |
 
 > 💡 **Nota:** Este README se actualiza automáticamente con cada ejecución del Prompt 90.
 > Incluye métricas frescas del proyecto, estado de módulos, y documentación al día.
 
 ---
 
+> _"Tienes más datos de los que crees. El reto no es recolectarlos, es perderles el miedo y saber hacerles la pregunta correcta."_
+>
+> **— Construido por Jesús "Napo" Villegas**
+
 <div align="center">
-
-**Hecho con ❤️ por el equipo de GDH Analytics**
-
 [⬆️ Volver al inicio](#-enterprise-hr-analytics-dashboard--gdh-analytics)
-
 </div>
 ```
-
----
-
-## Reglas de Actualización
-
-### Fuentes de Datos Obligatorias
-
-1. **Product Specs (`docs/01-product-specs/`):**
-   - `01_navigation_sitemap.md` → TODOS los módulos y vistas (árbol de navegación completo)
-   - `02_view_logic_specs.md` → Descripciones de negocio y tags (DESC, PRED, ML, etc.)
-   - `03_design_system.md` → Paleta de colores, tipografía, reglas de UI/UX
-
-2. **Data Governance (`docs/02-data-governance/`):**
-   - `02_supabase_metadata_inventory.md` → Columnas, tipos, completitud %, valores únicos de TODAS las tablas/vistas
-   - `03_data_samples.md` → Muestras reales de datos
-
-3. **AI-Generated Content (`docs/03-ai-generated-content/`):**
-   - `01_project_blueprint.md` → Estructura, dependencias, estado de módulos, variables de entorno, score de madurez
-   - `02_data_dictionary.md` → Linaje de datos, funciones RPC, reglas de simulación, diagrama ER
-   - `03_audit_report.md` → Score de calidad, hallazgos, seguridad, buenas prácticas
-
-4. **Pipeline Order (`docs/PIPELINE_ORDER.md`):**
-   - Orden de ejecución, dependencias cruzadas, comandos, nomenclatura
-
-5. **Código Fuente:**
-   - `client/package.json` → Versiones exactas de dependencias
-   - `client/src/App.jsx` → Qué vistas tienen componentes reales
-   - `client/src/config/navigation.js` → Módulos y sub-vistas configuradas
-   - `etl_pipeline/*.py` → Scripts existentes y su propósito
-
-### Reglas de Generación
-
-1. **Fecha y Hora:** El README DEBE incluir la fecha y hora actual en formato `YYYY-MM-DD HH:mm:ss UTC` en:
-   - La primera sección (header)
-   - La tabla de métricas (Última Actualización)
-   - El historial de actualizaciones (nueva fila)
-
-2. **Métricas Actualizadas:** Calcular y actualizar TODAS las métricas del proyecto cruzando TODAS las fuentes mencionadas arriba
-
-3. **Estado de Módulos:** Verificar qué módulos/vistas tienen implementación real vs placeholders:
-   - Cruzar `client/src/App.jsx` (qué componentes importa y renderiza)
-   - Cruzar `client/src/config/navigation.js` (qué está configurado)
-   - Cruzar `docs/03-ai-generated-content/01_project_blueprint.md` (estado reportado)
-
-4. **Dependencias:** Extraer versiones actuales de `client/package.json` y scripts Python
-
-5. **Estructura de Archivos:** Actualizar el árbol de directorios con la estructura real actual
-
-6. **Base de Datos:** Documentar completamente usando:
-   - `docs/03-ai-generated-content/02_data_dictionary.md` (linaje, funciones RPC, reglas)
-   - `docs/02-data-governance/02_supabase_metadata_inventory.md` (columnas, completitud)
-
-7. **Documentación Generada:** Verificar qué documentos de `docs/03-ai-generated-content/` existen y actualizar la tabla con fechas
-
-8. **Preservar Historial:** NO eliminar entradas anteriores del "Historial de Actualizaciones", solo agregar nuevas filas
-
-9. **Links Placeholder:** Si no hay repository URL aún, usar `<repository-url>` como placeholder
-
-10. **Licencia:** Si no está especificada, marcar como `[ESPECIFICAR LICENCIA]` con nota para definir
-
-11. **Consistencia:** Mantener el formato y estilo de este template — no cambiar encabezados ni eliminar secciones sin justificación
-
-12. **Marcadores de Fuente:** En cada tabla de métricas, incluir la columna "Fuente" indicando de dónde vino el dato (archivo MD o código)
-
-### Validación Final
-
-Antes de guardar el README:
-
-- [ ] ¿Se leyeron TODOS los documentos de `docs/01-product-specs/`?
-- [ ] ¿Se leyeron TODOS los documentos de `docs/02-data-governance/`?
-- [ ] ¿Se leyeron TODOS los documentos de `docs/03-ai-generated-content/` existentes?
-- [ ] ¿Se leyó `docs/PIPELINE_ORDER.md`?
-- [ ] ¿Se verificó qué módulos/vistas están realmente implementados?
-- [ ] ¿Se extrajeron versiones exactas de dependencias?
-- [ ] ¿Se incluyó la fecha/hora en formato `YYYY-MM-DD HH:mm:ss UTC`?
-- [ ] ¿Se preservó el historial de actualizaciones anterior?
-- [ ] ¿Todos los enlaces internos del README funcionan?
-
----
-
-## Output Final
-
-- El archivo actualizado debe ir a: `README.md` (raíz del proyecto)
-- **DEBE incluir fecha y hora en formato `YYYY-MM-DD HH:mm:ss UTC`** en el header y en las métricas
-- Mantener compatibilidad con GitHub Flavored Markdown
-- Verificar que todos los enlaces internos funcionen
-- NO commitear automáticamente — el operador debe revisar y hacer commit manual
-- Informar al operador: "✅ README actualizado exitosamente con datos de [X] fuentes documentales"
-
----
-
-## Ejemplo de Ejecución
-
-> "Ejecuta el prompt 90 para actualizar el README"
-
-Qwen Code entonces:
-1. Leerá TODA la documentación de producto (`docs/01-product-specs/` - 3 archivos)
-2. Leerá TODA la gobernanza de datos (`docs/02-data-governance/` - 2 archivos)
-3. Leerá TODO el contenido AI generado (`docs/03-ai-generated-content/` - 3 archivos si existen)
-4. Leerá `docs/PIPELINE_ORDER.md`
-5. Leerá archivos de configuración (`package.json`, `App.jsx`, `navigation.js`, etc.)
-6. Verificará qué módulos/vistas están realmente implementados
-7. Generará el README con la estructura y contenido especificados
-8. Incluirá la fecha y hora de la actualización
-9. Calculará métricas completas del proyecto con fuentes documentadas
-10. Guardará el archivo en `README.md` en la raíz del proyecto
-11. Informará al operador que el README está listo para revisión y commit
-12. Reportará qué documentos se leyeron y cuáles no estaban disponibles
-
----
-
-## Fuentes de Datos Utilizadas
-
-Este prompt está diseñado para consumir **TODAS** las siguientes fuentes:
-
-| Carpeta | Archivos | Propósito |
-|---------|----------|-----------|
-| `docs/01-product-specs/` | 3 archivos | Especificaciones de producto, navegación, diseño |
-| `docs/02-data-governance/` | 2 archivos | Metadata de base de datos, samples |
-| `docs/03-ai-generated-content/` | 3 archivos | Blueprint, data dictionary, audit report |
-| `docs/` | `PIPELINE_ORDER.md` | Orden de ejecución del pipeline |
-| `client/` | `package.json`, `App.jsx`, `navigation.js` | Dependencias, routing, configuración |
-| `etl_pipeline/` | Scripts 01-04, m05, 90-91, 00 | Pipeline ETL completo |
-
-> 💡 **Nota:** Este README se actualiza automáticamente con cada ejecución del Prompt 90.
-> Incluye métricas frescas del proyecto, estado de módulos, documentación de base de datos,
-> calidad de código, y toda la información recopilada de fuentes documentales múltiples.
