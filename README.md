@@ -2,7 +2,7 @@
 
 > **Gestión del Desarrollo Humano** | Plataforma Analítica Enterprise de RRHH
 >
-> **Última actualización:** 2026-04-11 16:34:59 UTC
+> **Última actualización:** 2026-04-11 16:54:47 UTC
 > **Versión del proyecto:** v0.0.0
 > **Estado:** 🟡 En desarrollo activo
 
@@ -69,7 +69,7 @@ GDH Analytics es una plataforma analítica integral diseñada para la **Gestión
 | @vitejs/plugin-react | 6.0.1 | Plugin React para Vite |
 | PostCSS | 8.5.8 | Procesador CSS |
 | Autoprefixer | 10.4.27 | Prefijos CSS automáticos |
-| Prisma | 7.6.0 | ORM (configurado, uso limitado) |
+| Prisma | 7.6.0 | ORM (configurado, sin schema) |
 | dotenv | 17.4.1 | Variables de entorno |
 | globals | 17.4.0 | Definiciones de globals ESLint |
 | @types/react | 19.2.14 | TypeScript types para React |
@@ -423,11 +423,11 @@ hr-analytics-dashboard/
 │   ├── 📂 02-data-governance/          # Gobernanza de datos (auto-generada)
 │   │   ├── 02_supabase_metadata_inventory.md  # Metadata de 13 objetos DB
 │   │   └── 03_data_samples.md                 # Muestras de datos reales
-│   ├── 📂 03-ai-generated-content/     # Contenido generado por Qwen Code
+│   ├── 📂 03-ai-generated-content/     # Contenido generado por IA
 │   │   ├── 01_project_blueprint.md     # Contexto maestro del proyecto
 │   │   ├── 02_data_dictionary.md       # Diccionario de datos + linaje
 │   │   └── 03_audit_report.md          # Auditoría completa de código
-│   ├── 📂 prompts/                     # Prompts para Qwen Code Terminal
+│   ├── 📂 prompts/                     # Prompts para terminal de IA
 │   │   ├── 00. Blueprint & Context.md
 │   │   ├── 01. Data Dictionary.md
 │   │   ├── 02. Audit & Linting.md
@@ -599,7 +599,7 @@ El proyecto sigue un modelo de documentación de **3 pilares** con generación a
 | Metadata Inventory | Script 90 (`generate_data_inventory.py`) | Inventario completo de 13 objetos DB: columnas, tipos, completitud %, valores únicos, muestras |
 | Data Samples | Script 91 (`export_data_samples.py`) | Muestras reales de datos de las vistas business |
 
-### Pilar 3: Contenido Generado por IA (Qwen Code Terminal)
+### Pilar 3: Contenido Generado por IA
 
 | Documento | Prompt | Descripción |
 |-----------|--------|-------------|
@@ -610,11 +610,10 @@ El proyecto sigue un modelo de documentación de **3 pilares** con generación a
 ### Ejecutar Prompts de Documentación
 
 ```bash
-# Desde la terminal de Qwen Code:
 "Ejecuta el prompt 00 para generar el Blueprint"
 "Ejecuta el prompt 01 para generar el Data Dictionary"
 "Ejecuta el prompt 02 para generar el Audit Report"
-"Ejecuta el prompt 90 para actualizar el README"  # ← Este prompt
+"Ejecuta el prompt 90 para actualizar el README"
 ```
 
 > 📋 Para orden de ejecución completo, dependencias cruzadas y reglas de oro: Ver [`docs/PIPELINE_ORDER.md`](docs/PIPELINE_ORDER.md)
@@ -669,11 +668,7 @@ El proyecto usa el design system **"Corporate Slate & Blue"**:
 
 ---
 
-## 📄 Licencia
-
-[ESPECIFICAR LICENCIA — MIT, Apache 2.0, etc.]
-
-> ⚠️ La licencia del proyecto aún no ha sido definida. Se recomienda definir una antes de hacer el repositorio público.
+## Este proyecto es de código abierto bajo la Licencia MIT.
 
 ---
 
@@ -683,6 +678,14 @@ El proyecto usa el design system **"Corporate Slate & Blue"**:
 *Data Engineer & AI Specialist | Corporate Data Architect*
 
 Profesional híbrido especializado en traducir operaciones de negocio complejas en arquitecturas de datos escalables. Con formación en gestión corporativa y actualmente cursando una Maestría en Data Analytics & Inteligencia Artificial (ESAN), diseño soluciones integrales (Data Mesh, ETL, predicción ML) que impactan directamente en la rentabilidad de las empresas.
+
+Aunque este proyecto es un _showcase_ aplicado a People Analytics, mi trayectoria abarca el diseño de pipelines y modelos analíticos para operaciones críticas a nivel LatAm en sectores como **Finanzas, Contabilidad, Producción y Energía**. Mi enfoque es entender la lógica del negocio desde adentro para construir herramientas Full-Stack que transformen datos crudos en decisiones ejecutivas de alto impacto.
+
+- 📍 **Ubicación:** Lima, Perú
+- 💼 **Rol Actual:** Especialista de Datos Corporativo en SMI (Grupo Intercorp)
+- ✉️ **Contacto:** jesus.villegas@outlook.com
+- 🔗 **LinkedIn:** [jesusvillegasg](https://www.linkedin.com/in/jesusvillegasg/)
+- 🛠️ **Stack Técnico:** Python, SQL, React, Power BI, GCP, Supabase, automatización RPA y SAP.
 
 ---
 
@@ -771,7 +774,7 @@ Profesional híbrido especializado en traducir operaciones de negocio complejas 
 
 | Métrica | Valor |
 |---------|-------|
-| **README** | 2026-04-11 16:34:59 UTC |
+| **README** | 2026-04-11 16:54:47 UTC |
 | **Versión del Proyecto** | v0.0.0 (de package.json) |
 | **Estado del Proyecto** | 🟡 En desarrollo activo (2 módulos implementados, 12 pendientes) |
 
@@ -781,6 +784,7 @@ Profesional híbrido especializado en traducir operaciones de negocio complejas 
 
 | Fecha | Versión | Cambios Principales | Autor |
 |-------|---------|---------------------|-------|
+| 2026-04-11 16:54:47 UTC | v0.0.0 | README regenerado con prompt 90 simplificado (150 líneas). Secciones estáticas (Licencia, Sobre el Desarrollador, Soporte, cita final) incluidas correctamente. Audit score 52/100 reflejado. | IA Terminal (Prompt 90) |
 | 2026-04-11 16:34:59 UTC | v0.0.0 | README regenerado desde cero con Restricción Nuclear. Audit score actualizado (52/100). Nuevos hallazgos críticos reflejados. | Qwen Code Terminal (Prompt 90) |
 | 2026-04-11 16:00:28 UTC | v0.0.0 | README actualizado via Prompt 90. Timestamp y métricas actualizadas. | Qwen Code Terminal (Prompt 90) |
 | 2026-04-11 15:37:25 UTC | v0.0.0 | README actualizado via Prompt 90. Sección "Sobre el Desarrollador" agregada. Timestamp actualizado. | Qwen Code Terminal (Prompt 90) |
@@ -800,7 +804,7 @@ FASE 0: PIPELINE ETL
   python etl_pipeline/00_full_run_pipeline.py
   └─ Genera: datos + vistas DB + docs de gobernanza (scripts 90-91)
 
-FASE 1: PROMPTS DE CONTEXTO (Qwen Code Terminal)
+FASE 1: PROMPTS DE CONTEXTO
   "Ejecuta el prompt 00" → docs/03-ai-generated-content/01_project_blueprint.md
   "Ejecuta el prompt 01" → docs/03-ai-generated-content/02_data_dictionary.md
   "Ejecuta el prompt 02" → docs/03-ai-generated-content/03_audit_report.md
@@ -816,9 +820,11 @@ FASE 3: DESARROLLO FRONTEND
 
 ---
 
-<div align="center">
+> _"Tienes más datos de los que crees. El reto no es recolectarlos, es perderles el miedo y saber hacerles la pregunta correcta."_
+>
+> **— Construido por Jesús "Napo" Villegas**
 
-**Hecho con ❤️ por Jesús "Napo" Villegas**
+<div align="center">
 
 [⬆️ Volver al inicio](#-enterprise-hr-analytics-dashboard--gdh-analytics)
 
