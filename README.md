@@ -2,7 +2,7 @@
 
 > **Gestión del Desarrollo Humano** | Plataforma Analítica Enterprise de RRHH
 >
-> **Última actualización:** 2026-04-11 15:37:25 UTC
+> **Última actualización:** 2026-04-11 16:34:59 UTC
 > **Versión del proyecto:** v0.0.0
 > **Estado:** 🟡 En desarrollo activo
 
@@ -459,7 +459,7 @@ CSV Files → RAW (Bronce/TEXT) → BUSINESS (Silver/Typed) → DATA MARTS (Gold
 
 | Tabla | Columnas | Completitud | Descripción |
 |-------|----------|-------------|-------------|
-| `raw."ibm_hr_monthly_snapshot_byNapo"` | 36 (incl. `created_at`) | 100% en columnas clave | Snapshots mensuales IBM HR (employee_id, snapshot_date como PK compuesta) |
+| `raw."ibm_hr_monthly_snapshot_byNapo"` | 37 (incl. `created_at`) | 100% en columnas clave | Snapshots mensuales IBM HR (employee_id, snapshot_date como PK compuesta) |
 | `raw."ibm_hr_change_reasons_byNapo"` | 7 (incl. `created_at`) | 100% | Catálogo de razones de cambio (SAL-IPC, TER-VOL, TER-INV, TER-RET) |
 
 **Columnas principales de la tabla principal:** `snapshot_date`, `employee_id`, `employee_code`, `full_name`, `gender`, `country_iso3`, `department_name`, `job_role`, `job_level_1`, `job_level_2`, `employment_status`, `hire_date`, `termination_date`, `monthly_salary_local`, `currency_iso3`, `fx_rate_to_usd`, `monthly_salary_usd`, `manager_employee_id`, `work_center_id`, `work_modality`, `education_level`, `marital_status`, `dependents_count`
@@ -470,7 +470,7 @@ CSV Files → RAW (Bronce/TEXT) → BUSINESS (Silver/Typed) → DATA MARTS (Gold
 
 | Vista | Columnas | Descripción |
 |-------|----------|-------------|
-| `business.v_employee_full_bynapo` | 22 (19 fuente + 3 calculadas) | Vista maestra de empleados con tipos: DATE, INTEGER, NUMERIC(12,2), BOOLEAN |
+| `business.v_employee_full_bynapo` | 23 (19 fuente + 4 calculadas) | Vista maestra de empleados con tipos: DATE, INTEGER, NUMERIC(12,2), BOOLEAN |
 | `business.mv_ui_global_filters` | 1 (JSON) | 6 filtros universales como JSON: periods, countries, departments, job_levels_1/2, work_centers |
 
 **Reglas de negocio aplicadas en `v_employee_full_bynapo`:**
@@ -555,28 +555,28 @@ CSV Files → RAW (Bronce/TEXT) → BUSINESS (Silver/Typed) → DATA MARTS (Gold
 
 > **Fuente:** `docs/03-ai-generated-content/03_audit_report.md` (generado automáticamente 2026-04-11)
 
-### Score de Calidad: 76/100
+### Score de Calidad: 52/100
 
 | Pilar | Score | Detalle |
 |-------|-------|---------|
-| **Seguridad** | 18/25 | `.env` posible expuesto, falta RLS awareness, riesgo XSS en tooltip ECharts |
-| **Limpieza de Código** | 20/25 | `OrganigramaIntegral.jsx` 100% mock, imports React no usados |
-| **Buenas Prácticas** | 17/25 | CERO `aria-label` en íconos Lucide (~30+), fetch eager sin lazy loading |
-| **Consistencia** | 21/25 | Naming español/inglés mezclado, temas visuales mixtos, IDs de vistas hardcodeados |
+| **Seguridad** | 12/25 | `.env` posible expuesto, GRANT a `anon` en RPCs, riesgo XSS en tooltip ECharts, tabla incorrecta en App.jsx |
+| **Limpieza de Código** | 16/25 | `OrganigramaIntegral.jsx` 100% mock, imports React no usados (5 archivos), dependencias ghost (prisma, postcss, autoprefixer) |
+| **Buenas Prácticas** | 14/25 | CERO `aria-label` en íconos Lucide (~30+), fetch eager sin lazy loading, error handling insuficiente |
+| **Consistencia** | 10/25 | App.jsx consulta tabla inexistente (`ibm_hr`), navegación a ruta inexistente (`org_dotacion`), naming mezclado, temas visuales mixtos |
 
 ### Hallazgos por Severidad
 
 | Severidad | Count | Top Issues |
 |-----------|-------|-----------|
-| 🔴 Crítico | 3 | `.env` expuesto, `OrganigramaIntegral` mock completo, accesibilidad (0 aria-labels) |
-| 🟡 Moderado | 10 | Imports React no usados, botón a ruta inexistente, nombre hardcodeado en footer, fetch eager |
-| 🟢 Menor | 5 | Doble import lucide-react, key posible duplicada, sin PropTypes, mezcla de idiomas |
+| 🔴 Crítico | 6 | App.jsx tabla incorrecta, Organigrama mock, FX rate hardcodeado 3.50, ruta inexistente, GRANT anon, imports React |
+| 🟡 Moderado | 7 | Doble import lucide, prisma sin schema, código muerto en nav, nombre hardcodeado, postcss innecesario |
+| 🟢 Menor | 10 | Sin .env.example, sin tests, title genérico, 11 módulos vacíos, SVG sin aria-label |
 
 ### Top 3 Prioridades de Corrección
 
-1. **Proteger `.env`** — Agregar a `.gitignore` del client, crear `.env.example`, rotar anon key expuesta
-2. **Conectar `OrganigramaIntegral` a datos reales** — Usar `business.v_org_tree_bynapo` o marcar como placeholder
-3. **Agregar `aria-hidden="true"` a todos los íconos** — 30+ cambios en 5 archivos para accesibilidad WCAG 2.1
+1. **Corregir App.jsx** — Cambiar `business.ibm_hr` → `business.v_employee_full_bynapo` (tabla correcta)
+2. **Proteger `.env` y RPCs** — Agregar `.env.example`, remover GRANT a `anon`, rotar keys
+3. **Conectar `OrganigramaIntegral` a datos reales** — Usar `business.v_org_tree_bynapo` o marcar como placeholder
 
 ---
 
@@ -605,7 +605,7 @@ El proyecto sigue un modelo de documentación de **3 pilares** con generación a
 |-----------|--------|-------------|
 | Project Blueprint | Prompt 00 | Contexto maestro: estructura, dependencias, arquitectura de datos, pipeline ETL, estado frontend, variables de entorno, score de madurez |
 | Data Dictionary | Prompt 01 | Diccionario de datos completo: linaje, capas raw/business/data marts, funciones RPC, reglas de simulación, diagrama ER |
-| Audit Report | Prompt 02 | Auditoría completa: hallazgos (18), score de calidad (76/100), seguridad, limpieza de código, buenas prácticas, correcciones con diffs |
+| Audit Report | Prompt 02 | Auditoría completa: hallazgos (23), score de calidad (52/100), seguridad, limpieza de código, buenas prácticas, correcciones con diffs |
 
 ### Ejecutar Prompts de Documentación
 
@@ -745,11 +745,11 @@ Profesional híbrido especializado en traducir operaciones de negocio complejas 
 
 | Métrica | Valor | Fuente |
 |---------|-------|--------|
-| **Score de Calidad** | 76/100 | `docs/03-ai-generated-content/03_audit_report.md` |
-| **Hallazgos Críticos** | 3 🔴 | audit_report |
-| **Advertencias** | 10 🟡 | audit_report |
-| **Sugerencias** | 5 🟢 | audit_report |
-| **Total Hallazgos** | 18 | audit_report |
+| **Score de Calidad** | 52/100 | `docs/03-ai-generated-content/03_audit_report.md` |
+| **Hallazgos Críticos** | 6 🔴 | audit_report |
+| **Advertencias** | 7 🟡 | audit_report |
+| **Sugerencias** | 10 🟢 | audit_report |
+| **Total Hallazgos** | 23 | audit_report |
 | **Accesibilidad** | ⚠️ 0 aria-labels en ~30+ íconos | audit_report |
 
 ### Cobertura de Documentación
@@ -759,9 +759,9 @@ Profesional híbrido especializado en traducir operaciones de negocio complejas 
 | **Product Specs** | ✅ 3/3 completos | `docs/01-product-specs/` |
 | **Data Governance** | ✅ 2/2 generados | `docs/02-data-governance/` |
 | **AI-Generated Content** | ✅ 3/3 generados | `docs/03-ai-generated-content/` |
-| **Blueprint** | ✅ 2026-04-11T06:30:00Z | `01_project_blueprint.md` |
-| **Data Dictionary** | ✅ 2026-04-11T06:32:00Z | `02_data_dictionary.md` |
-| **Audit Report** | ✅ 2026-04-11T06:35:00Z | `03_audit_report.md` |
+| **Blueprint** | ✅ 2026-04-11T23:00:00Z | `01_project_blueprint.md` |
+| **Data Dictionary** | ✅ 2026-04-11T00:00:00Z | `02_data_dictionary.md` |
+| **Audit Report** | ✅ 2026-04-11T23:00:00Z | `03_audit_report.md` |
 | **Metadata Inventory** | ✅ 2026-04-11T06:25:54Z | `02_supabase_metadata_inventory.md` |
 | **Data Samples** | ✅ 2026-04-11T06:15:50Z | `03_data_samples.md` |
 | **Pipeline Order** | ✅ Actualizado | `docs/PIPELINE_ORDER.md` |
@@ -771,7 +771,7 @@ Profesional híbrido especializado en traducir operaciones de negocio complejas 
 
 | Métrica | Valor |
 |---------|-------|
-| **README** | 2026-04-11 15:37:25 UTC |
+| **README** | 2026-04-11 16:34:59 UTC |
 | **Versión del Proyecto** | v0.0.0 (de package.json) |
 | **Estado del Proyecto** | 🟡 En desarrollo activo (2 módulos implementados, 12 pendientes) |
 
@@ -781,6 +781,8 @@ Profesional híbrido especializado en traducir operaciones de negocio complejas 
 
 | Fecha | Versión | Cambios Principales | Autor |
 |-------|---------|---------------------|-------|
+| 2026-04-11 16:34:59 UTC | v0.0.0 | README regenerado desde cero con Restricción Nuclear. Audit score actualizado (52/100). Nuevos hallazgos críticos reflejados. | Qwen Code Terminal (Prompt 90) |
+| 2026-04-11 16:00:28 UTC | v0.0.0 | README actualizado via Prompt 90. Timestamp y métricas actualizadas. | Qwen Code Terminal (Prompt 90) |
 | 2026-04-11 15:37:25 UTC | v0.0.0 | README actualizado via Prompt 90. Sección "Sobre el Desarrollador" agregada. Timestamp actualizado. | Qwen Code Terminal (Prompt 90) |
 | 2026-04-11 14:47:25 UTC | v0.0.0 | README actualizado (Prompt 90). Re-ejecución tras cambios manuales del usuario. Fuentes: 8 documentos + código fuente verificado. | Qwen Code Terminal (Prompt 90) |
 | 2026-04-11 14:10:27 UTC | v0.0.0 | README re-escrito completamente con mejores prácticas 2024-2025. Fuentes: 8 documentos + código. Métricas cruzadas, DB documentada, audit score incluido. | Qwen Code Terminal (Prompt 90) |

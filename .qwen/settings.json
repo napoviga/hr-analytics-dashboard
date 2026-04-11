@@ -3,7 +3,8 @@
     "allow": [
       "Bash(powershell *)",
       "Bash(git *)",
-      "Bash(findstr *)"
+      "Bash(findstr *)",
+      "Bash(mkdir *)"
     ]
   },
   "$version": 3
