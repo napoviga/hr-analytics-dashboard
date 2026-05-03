@@ -73,12 +73,12 @@ graph TD
         M_OTHER[Vistas m02-m13]
     end
 
-    subgraph API Layer (PostgREST)
-        RPC[Funciones RPC: get_nomina_dashboard...]
+    subgraph API Layer
+        RPC["Funciones RPC: get_nomina_dashboard"]
     end
 
-    subgraph Frontend (React)
-        UI[Componentes UI: MasaSalarial.jsx, etc.]
+    subgraph Frontend
+        UI["Componentes UI: MasaSalarial.jsx"]
     end
 
     CSV --> RAW_EMP
@@ -228,13 +228,11 @@ La arquitectura se rige bajo el patrón Medallion:
 
 ---
 
-## 🔒 LICENCIA (copiar literalmente)
+## 📜 Licencia
 
 Este proyecto es de código abierto bajo la Licencia MIT.
 
 ---
-
-## 🔒 SOBRE EL DESARROLLADOR (copiar literalmente, sin cambiar una sola palabra)
 
 ## 👨‍💻 Sobre el Desarrollador
 
@@ -252,8 +250,6 @@ Aunque este proyecto es un _showcase_ aplicado a People Analytics, mi trayectori
 - 🛠️ **Stack Técnico:** Python, SQL, React, Power BI, GCP, Supabase, automatización RPA y SAP.
 
 ---
-
-## 🔒 SOPORTE (copiar literalmente)
 
 ## 📞 Soporte
 
@@ -281,10 +277,10 @@ Aunque este proyecto es un _showcase_ aplicado a People Analytics, mi trayectori
 
 ## 📝 Historial de Actualizaciones
 
-- **2026-05-03 18:23:19 UTC**: Regeneración completa del README, sincronización de la documentación Blueprint, Data Dictionary y Audit Report con estabilidad total en todos los 13 módulos del pipeline ETL.
-- **2026-05-03 16:58:29 UTC**: Ejecución exitosa de pipeline modular completo y reestructuración de gobernanza.
 | Fecha | Versión | Cambios Principales | Autor |
 |---|---|---|---|
+| 2026-05-03 | v0.0.0 | Regeneración completa del README, sincronización de documentación (Blueprint, Data Dictionary, Audit Report). Estabilidad total en 13 módulos ETL. | Napo |
+| 2026-05-03 | v0.0.0 | Ejecución exitosa de pipeline modular completo y reestructuración de gobernanza. | Napo |
 
 ---
 
@@ -293,5 +289,7 @@ Aunque este proyecto es un _showcase_ aplicado a People Analytics, mi trayectori
 > **— Construido por Jesús "Napo" Villegas**
 
 <div align="center">
+
 [⬆️ Volver al inicio](#-enterprise-hr-analytics-dashboard--gdh-analytics)
+
 </div>

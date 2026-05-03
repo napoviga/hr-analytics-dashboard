@@ -139,13 +139,15 @@ Copia la estructura siguiente. Las secciones con `{...}` se generan leyendo las 
 
 ---
 
-## 🔒 LICENCIA (copiar literalmente)
+## 📜 Licencia
+
+> ⚠️ INSTRUCCIÓN PARA EL AGENTE: Copia el siguiente texto literalmente sin modificar.
 
 Este proyecto es de código abierto bajo la Licencia MIT.
 
 ---
 
-## 🔒 SOBRE EL DESARROLLADOR (copiar literalmente, sin cambiar una sola palabra)
+> ⚠️ INSTRUCCIÓN PARA EL AGENTE: Copia la siguiente sección palabra por palabra. NO incluyas esta instrucción en el README de salida.
 
 ## 👨‍💻 Sobre el Desarrollador
 
@@ -164,7 +166,7 @@ Aunque este proyecto es un _showcase_ aplicado a People Analytics, mi trayectori
 
 ---
 
-## 🔒 SOPORTE (copiar literalmente)
+> ⚠️ INSTRUCCIÓN PARA EL AGENTE: Copia la siguiente sección literalmente. NO incluyas esta instrucción en el README de salida.
 
 ## 📞 Soporte
 
