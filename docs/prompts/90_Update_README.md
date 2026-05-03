@@ -19,14 +19,14 @@
 
 ## Fuentes Obligatorias (lee TODAS antes de generar)
 
-| Carpeta | Archivos | Qué extraer |
-|---------|----------|-------------|
-| `docs/01-product-specs/` | 3 archivos | Navegación, descripciones de vistas, design system |
-| `docs/02-data-governance/` | 2 archivos | Metadata de DB, samples |
-| `docs/03-ai-generated-content/` | 3 archivos | Blueprint, data dictionary, audit report |
-| `docs/` | `PIPELINE_ORDER.md` | Orden de ejecución ETL |
-| `client/` | `package.json`, `App.jsx`, `navigation.js` | Dependencias, routing, módulos |
-| `etl_pipeline/` | Todos los `.py` | Scripts y pipeline |
+| Carpeta                         | Archivos                                   | Qué extraer                                        |
+| ------------------------------- | ------------------------------------------ | -------------------------------------------------- |
+| `docs/01-product-specs/`        | 3 archivos                                 | Navegación, descripciones de vistas, design system |
+| `docs/02-data-governance/`      | 2 archivos                                 | Metadata de DB, samples                            |
+| `docs/03-ai-generated-content/` | 3 archivos                                 | Blueprint, data dictionary, audit report           |
+| `docs/`                         | `PIPELINE_ORDER.md`                        | Orden de ejecución ETL                             |
+| `client/`                       | `package.json`, `App.jsx`, `navigation.js` | Dependencias, routing, módulos                     |
+| `etl_pipeline/`                 | Todos los `.py`                            | Scripts y pipeline                                 |
 
 ---
 
@@ -152,7 +152,7 @@ Este proyecto es de código abierto bajo la Licencia MIT.
 ## 👨‍💻 Sobre el Desarrollador
 
 **Jesús Napoleón "Napo" Villegas Gálvez**
-*Data Engineer & AI Specialist | Corporate Data Architect*
+Data & Analytics Specialist | Transversal Analytics (People, Finance, Manufacturing) | Power BI | Python | SAP ERP (FI, CO, PP, MM, HCM)
 
 Profesional híbrido especializado en traducir operaciones de negocio complejas en arquitecturas de datos escalables. Con formación en gestión corporativa y actualmente cursando una Maestría en Data Analytics & Inteligencia Artificial (ESAN), diseño soluciones integrales (Data Mesh, ETL, predicción ML) que impactan directamente en la rentabilidad de las empresas.
 
@@ -170,12 +170,12 @@ Aunque este proyecto es un _showcase_ aplicado a People Analytics, mi trayectori
 
 ## 📞 Soporte
 
-| Canal | Enlace |
-|-------|--------|
-| **Issues** | `<repository-url>/issues` |
-| **Discusiones** | `<repository-url>/discussions` |
-| **Documentación Completa** | Carpeta `docs/` (3 pilares, 8+ documentos) |
-| **Supabase Dashboard** | https://app.supabase.com/project/YOUR_PROJECT |
+| Canal                      | Enlace                                        |
+| -------------------------- | --------------------------------------------- |
+| **Issues**                 | `<repository-url>/issues`                     |
+| **Discusiones**            | `<repository-url>/discussions`                |
+| **Documentación Completa** | Carpeta `docs/` (3 pilares, 8+ documentos)    |
+| **Supabase Dashboard**     | https://app.supabase.com/project/YOUR_PROJECT |
 
 ---
 
@@ -196,7 +196,7 @@ Aunque este proyecto es un _showcase_ aplicado a People Analytics, mi trayectori
 > **— Construido por Jesús "Napo" Villegas**
 
 <div align="center">
-[⬆️ Volver al inicio](#-enterprise-hr-analytics-dashboard--gdh-analytics)
+  <a href="#-enterprise-hr-analytics-dashboard--gdh-analytics">⬆️ Volver al inicio</a>
 </div>
 ```
 
