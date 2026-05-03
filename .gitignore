@@ -1,0 +1,47 @@
+# ========================================
+# GDH Analytics — .gitignore
+# ========================================
+
+# === Variables de entorno — CIBERSEGURIDAD ===
+# Contienen: DATABASE_URL, SUPABASE_SERVICE_KEY, ANON_KEY
+# JAMÁS deben subirse al repositorio
+.env
+client/.env
+
+# === Plantilla segura (SÍ se versiona) ===
+# Contiene solo placeholders, sin claves reales
+!.env.example
+
+# === CSVs generados por el pipeline (regenerables) ===
+# Se recrean al ejecutar: python etl_pipeline/01_generate_synthetic_data.py
+# Solo se versiona data/ibm_hr.csv (dataset original, 223 KB)
+data/*_byNapo.csv
+
+# === Dependencias (regenerables con npm install / pip install) ===
+node_modules/
+.venv/
+__pycache__/
+*.pyc
+
+# === Build y distribución (regenerables con npm run build) ===
+dist/
+build/
+.turbo/
+
+# === Logs ===
+*.log
+npm-debug.log*
+
+# === OS y editores ===
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# === Gemini AI Agent (cache local) ===
+.gemini/
+
+# === Archivos Power BI (binarios pesados) ===
+*.pbix
