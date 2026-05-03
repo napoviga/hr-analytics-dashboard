@@ -38,13 +38,13 @@ El sistema está estructurado en 13 módulos analíticos independientes pero int
 
 ## 🛠️ Stack Tecnológico
 
-| Capa | Tecnologías | Versión / Comentario |
-|---|---|---|
-| **Frontend UI** | React, Vite | React ^19.2.4, Vite ^8.0.1 |
-| **Estilos & Íconos** | Tailwind CSS, Lucide | Tailwind ^4.2.2, Lucide ^1.7.0 |
-| **Visualización** | ECharts (echarts-for-react) | ECharts ^6.0.0 |
-| **Backend & ETL** | Python, Pandas, SQLAlchemy | Python 3, SQLAlchemy ^2.0.49 |
-| **Base de Datos & Auth** | Supabase, PostgreSQL | @supabase/supabase-js ^2.101.1 |
+| Capa                     | Tecnologías                 | Versión / Comentario           |
+| ------------------------ | --------------------------- | ------------------------------ |
+| **Frontend UI**          | React, Vite                 | React ^19.2.4, Vite ^8.0.1     |
+| **Estilos & Íconos**     | Tailwind CSS, Lucide        | Tailwind ^4.2.2, Lucide ^1.7.0 |
+| **Visualización**        | ECharts (echarts-for-react) | ECharts ^6.0.0                 |
+| **Backend & ETL**        | Python, Pandas, SQLAlchemy  | Python 3, SQLAlchemy ^2.0.49   |
+| **Base de Datos & Auth** | Supabase, PostgreSQL        | @supabase/supabase-js ^2.101.1 |
 
 ---
 
@@ -97,22 +97,22 @@ Patrones implementados: **Medallion Architecture**, pre‑agregación mediante v
 
 ## 📦 Módulos Funcionales
 
-| # | Módulo | Estado en `App.jsx` | Archivos Principales |
-|---|---|---|---|
-| 01 | Visión Ejecutiva | Activo | AlertasAnomalias, Benchmarking |
-| 02 | Reclutamiento & Selección | Activo | EficienciaCiclos, CalidadContratacion, FitScore |
-| 03 | Onboarding & Integración | Activo | ProcesosActivos, TiempoProductividad, RotacionTemprana |
-| 04 | Ciclo de Vida & Clústeres | Activo | ComportamientoGrupos, CausalidadCorrelaciones |
-| 05 | Fuerza Laboral & Estructura | Activo | Demographics, OrgStructure, EmployeeTable |
-| 06 | Nómina, Costos & Equidad | Activo | Compensations, EquidadInterna, CompaRatio, MasaSalarial |
-| 07 | Tiempo, Asistencia & Bienestar | Activo | Ausentismo, HorasExtra, MallaVacaciones, SaludOcupacional |
-| 08 | Gestión del Desempeño | Activo | Evaluacion360, AvanceOKRs, PlanesMejora |
-| 09 | Talento & Desarrollo | Activo | MatrizNineBox, MapaSucesion, BrechasSkills |
-| 10 | Engagement & Sentimiento | Activo | EngagementENPS, HeatmapEngagement, DiversidadInclusion |
-| 11 | Compliance & Relaciones | Activo | CumplimientoLaboral, RelacionesSindicales |
-| 12 | Retención & Riesgo de Fuga | Activo | ScoreFuga, BenchmarkingTurnover, CorrelacionManager |
-| 13 | Calidad de Datos | Activo | LogDatosMaestros, DiccionarioDatos |
-| 14 | Administración | ⚠️ Placeholder | - |
+| #   | Módulo                         | Estado en `App.jsx` | Archivos Principales                                      |
+| --- | ------------------------------ | ------------------- | --------------------------------------------------------- |
+| 01  | Visión Ejecutiva               | Activo              | AlertasAnomalias, Benchmarking                            |
+| 02  | Reclutamiento & Selección      | Activo              | EficienciaCiclos, CalidadContratacion, FitScore           |
+| 03  | Onboarding & Integración       | Activo              | ProcesosActivos, TiempoProductividad, RotacionTemprana    |
+| 04  | Ciclo de Vida & Clústeres      | Activo              | ComportamientoGrupos, CausalidadCorrelaciones             |
+| 05  | Fuerza Laboral & Estructura    | Activo              | Demographics, OrgStructure, EmployeeTable                 |
+| 06  | Nómina, Costos & Equidad       | Activo              | Compensations, EquidadInterna, CompaRatio, MasaSalarial   |
+| 07  | Tiempo, Asistencia & Bienestar | Activo              | Ausentismo, HorasExtra, MallaVacaciones, SaludOcupacional |
+| 08  | Gestión del Desempeño          | Activo              | Evaluacion360, AvanceOKRs, PlanesMejora                   |
+| 09  | Talento & Desarrollo           | Activo              | MatrizNineBox, MapaSucesion, BrechasSkills                |
+| 10  | Engagement & Sentimiento       | Activo              | EngagementENPS, HeatmapEngagement, DiversidadInclusion    |
+| 11  | Compliance & Relaciones        | Activo              | CumplimientoLaboral, RelacionesSindicales                 |
+| 12  | Retención & Riesgo de Fuga     | Activo              | ScoreFuga, BenchmarkingTurnover, CorrelacionManager       |
+| 13  | Calidad de Datos               | Activo              | LogDatosMaestros, DiccionarioDatos                        |
+| 14  | Administración                 | ⚠️ Placeholder      | -                                                         |
 
 ---
 
@@ -139,6 +139,7 @@ Patrones implementados: **Medallion Architecture**, pre‑agregación mediante v
 ## 📥 Instalación y Configuración
 
 El proyecto requiere los siguientes archivos `.env`:
+
 - `VITE_SUPABASE_URL` – URL del proyecto Supabase.
 - `VITE_SUPABASE_ANON_KEY` – llave pública para el cliente.
 - `SUPABASE_SERVICE_KEY` – llave de servicio (secreto).
@@ -150,14 +151,14 @@ Utilice el archivo `.env.example` como plantilla.
 
 ## 🔄 Pipeline ETL
 
-| Fase | Script | Función |
-|---|---|---|
-| **01 Generación** | `01_generate_synthetic_data.py` | Crea 22 CSV sintéticos. |
-| **02 RAW** | `02_setup_raw_layer.py` | Crea esquemas `raw.*`. |
-| **03 Ingesta** | `03_ingest_data.py` | Carga CSV → PostgreSQL. |
-| **04 Core** | `04_setup_business_core.py` | Construye vista `v_employee_full_byNapo` y filtros. |
-| **Marts** | `m01_*.py` … `m13_*.py` | Genera vistas materializadas y RPCs. |
-| **Meta** | `90_generate_data_inventory.py`, `91_export_data_samples.py`, `92_generate_lineage.py` | Genera catálogos, samples y linaje. |
+| Fase              | Script                                                                                 | Función                                             |
+| ----------------- | -------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| **01 Generación** | `01_generate_synthetic_data.py`                                                        | Crea 22 CSV sintéticos.                             |
+| **02 RAW**        | `02_setup_raw_layer.py`                                                                | Crea esquemas `raw.*`.                              |
+| **03 Ingesta**    | `03_ingest_data.py`                                                                    | Carga CSV → PostgreSQL.                             |
+| **04 Core**       | `04_setup_business_core.py`                                                            | Construye vista `v_employee_full_byNapo` y filtros. |
+| **Marts**         | `m01_*.py` … `m13_*.py`                                                                | Genera vistas materializadas y RPCs.                |
+| **Meta**          | `90_generate_data_inventory.py`, `91_export_data_samples.py`, `92_generate_lineage.py` | Genera catálogos, samples y linaje.                 |
 
 ---
 
@@ -189,6 +190,7 @@ hr-analytics-dashboard/
 ## 🗄️ Base de Datos
 
 Arquitectura Medallion en PostgreSQL:
+
 1. **RAW** – Tablas crudas (`raw.*_byNapo`).
 2. **BUSINESS** – Vista única `business.v_employee_full_byNapo` (SSOT) y filtro `business.mv_ui_global_filters`.
 3. **DATA MARTS** – Vistas materializadas (`mv_*`) que precalculan KPIs para cada módulo y son consumidas vía RPCs.
@@ -197,17 +199,17 @@ Arquitectura Medallion en PostgreSQL:
 
 ## 📚 Documentación
 
-| Pilar | Ruta | Propósito |
-|---|---|---|
-| **Especificaciones de Producto** | `docs/01-product-specs/` | Roadmap, sitemap y design system. |
-| **Gobernanza de Datos** | `docs/02-data-governance/` | Diccionario, muestras y linaje. |
-| **Contenido Automatizado** | `docs/03-ai-generated-content/` | Blueprint, data dictionary y audit report. |
+| Pilar                            | Ruta                            | Propósito                                  |
+| -------------------------------- | ------------------------------- | ------------------------------------------ |
+| **Especificaciones de Producto** | `docs/01-product-specs/`        | Roadmap, sitemap y design system.          |
+| **Gobernanza de Datos**          | `docs/02-data-governance/`      | Diccionario, muestras y linaje.            |
+| **Contenido Automatizado**       | `docs/03-ai-generated-content/` | Blueprint, data dictionary y audit report. |
 
 ---
 
 ## 🤝 Contribuir
 
-1. **Design System** – Use exclusivamente la paleta *Corporate Slate & Blue*; colores genéricos están prohibidos.
+1. **Design System** – Use exclusivamente la paleta _Corporate Slate & Blue_; colores genéricos están prohibidos.
 2. **Lógica de Negocio** – Evite cálculos pesados en el frontend; delegue a vistas materializadas.
 3. **Sincronización** – Tras cualquier cambio estructural, ejecute `python etl_pipeline/00_full_run_pipeline.py`.
 
@@ -238,29 +240,29 @@ Profesional híbrido especializado en traducir operaciones de negocio complejas 
 
 ## 📊 Métricas del Proyecto
 
-| Categoría | Valor | Fuente |
-|---|---|---|
-| **Módulos Funcionales (UI)** | 13 de 14 | `client/src/App.jsx` |
-| **Scripts ETL Totales** | 21 archivos | `etl_pipeline/` |
-| **Vistas Materializadas** | >20 MVs | `02_data_dictionary.md` |
-| **Documentación** | 12+ documentos | `docs/` |
-| **Score de Calidad** | 94/100 | `03_audit_report.md` |
-| **Tiempo Pipeline** | ~1‑3 mins | `00_full_run_pipeline.py` |
+| Categoría                    | Valor          | Fuente                    |
+| ---------------------------- | -------------- | ------------------------- |
+| **Módulos Funcionales (UI)** | 13 de 14       | `client/src/App.jsx`      |
+| **Scripts ETL Totales**      | 21 archivos    | `etl_pipeline/`           |
+| **Vistas Materializadas**    | >20 MVs        | `02_data_dictionary.md`   |
+| **Documentación**            | 12+ documentos | `docs/`                   |
+| **Score de Calidad**         | 94/100         | `03_audit_report.md`      |
+| **Tiempo Pipeline**          | ~1‑3 mins      | `00_full_run_pipeline.py` |
 
 ---
 
 ## 📝 Historial de Actualizaciones
 
-| Fecha | Versión | Cambios Principales | Autor |
-|---|---|---|---|
-| 2026-05-03 | v2.0.0 | Actualización final de README conforme Prompt 90 versión 2.0.0, métricas actualizadas y versión del proyecto fijada. | Napo |
-| 2026-05-03 | v0.0.0 | Regeneración total de README vía Prompt 90. Corrección de Mermaid syntax, headers y tabla de historial. | Napo |
-| 2026-05-03 | v0.0.0 | Sincronización de documentación (Blueprint, Data Dictionary, Audit Report). Estabilidad total en 13 módulos ETL. | Napo |
-| 2026-05-03 | v0.0.0 | Ejecución exitosa de pipeline modular completo y reestructuración de gobernanza. | Napo |
+| Fecha      | Versión | Cambios Principales                                                                                                  | Autor |
+| ---------- | ------- | -------------------------------------------------------------------------------------------------------------------- | ----- |
+| 2026-05-03 | v2.0.0  | Actualización final de README conforme Prompt 90 versión 2.0.0, métricas actualizadas y versión del proyecto fijada. | Napo  |
+| 2026-05-03 | v0.0.0  | Regeneración total de README vía Prompt 90. Corrección de Mermaid syntax, headers y tabla de historial.              | Napo  |
+| 2026-05-03 | v0.0.0  | Sincronización de documentación (Blueprint, Data Dictionary, Audit Report). Estabilidad total en 13 módulos ETL.     | Napo  |
+| 2026-05-03 | v0.0.0  | Ejecución exitosa de pipeline modular completo y reestructuración de gobernanza.                                     | Napo  |
 
 ---
 
-> _"Tienes más datos de los que crees. El reto no es recolectarlos, es perderles el miedo y saber hacerles la pregunta correcta."_
+> \_"Tienes más datos de los que crees. El reto no es recolectarlos, es perderles el miedo y saber hacerles la pregunta correcta."<br>
 > **— Construido por Jesús "Napo" Villegas**
 
 <div align="center">

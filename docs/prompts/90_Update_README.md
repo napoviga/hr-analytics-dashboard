@@ -177,6 +177,10 @@ Aunque este proyecto es un _showcase_ aplicado a People Analytics, mi trayectori
 > **— Construido por Jesús "Napo" Villegas**
 
 <div align="center">
+  <blockquote>
+    "Tienes más datos de los que crees. El reto no es recolectarlos, es perderles el miedo y saber hacerles la pregunta correcta."<br>
+    — Construido por Jesús "Napo" Villegas
+  </blockquote>
   <a href="#-enterprise-hr-analytics-dashboard--gdh-analytics">⬆️ Volver al inicio</a>
 </div>
 ```
