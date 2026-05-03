@@ -2,7 +2,7 @@
 
 > **Gestión del Desarrollo Humano** | Plataforma Analítica Enterprise de RRHH
 >
-> **Última actualización:** 2026-05-03 16:46:21 UTC
+> **Última actualización:** 2026-05-03 21:50:00 UTC
 > **Versión del proyecto:** v0.0.0
 > **Estado:** 🟡 En desarrollo activo
 
@@ -34,7 +34,7 @@
 
 Plataforma analítica avanzada diseñada para el equipo de Gestión del Desarrollo Humano (GDH), que consolida, procesa y visualiza métricas organizacionales críticas a través de una arquitectura de datos escalable. Su enfoque pasa del reporte estático tradicional hacia un modelo interactivo, dinámico y predictivo de People Analytics, dotando a los líderes de talento de información centralizada para la toma de decisiones.
 
-El sistema se caracteriza por su modularidad extrema, dividiendo el ciclo de vida del colaborador en 13 módulos analíticos independientes pero interconectados por una única base de verdad de negocio (Single Source of Truth). Todas las transformaciones se gestionan mediante una arquitectura Medallion y consultas de alto rendimiento expuestas a través de RPC en PostgreSQL.
+El sistema se caracteriza por su modularidad extrema, dividiendo el ciclo de vida del colaborador en 13 módulos analíticos independientes pero interconectados por una única base de verdad de negocio (Single Source of Truth). Todas las transformaciones se gestionan mediante una arquitectura Medallion y consultas de alto rendimiento expuestas a través de RPC.
 
 Cada módulo está diseñado bajo estándares corporativos, utilizando un motor predictivo para identificar anomalías, riesgo de fuga y brechas de talento, permitiendo una gestión proactiva basada en evidencia científica y datos reales de la operación.
 
@@ -281,6 +281,7 @@ Aunque este proyecto es un _showcase_ aplicado a People Analytics, mi trayectori
 
 | Fecha | Versión | Cambios Principales | Autor |
 |---|---|---|---|
+| 2026-05-03 | v0.0.0 | Actualización final de README con estabilización de métricas y validación completa del repositorio. | Napo |
 | 2026-05-03 | v0.0.0 | Regeneración total de README vía Prompt 90. Corrección de Mermaid syntax, headers y tabla de historial. | Napo |
 | 2026-05-03 | v0.0.0 | Sincronización de documentación (Blueprint, Data Dictionary, Audit Report). Estabilidad total en 13 módulos ETL. | Napo |
 | 2026-05-03 | v0.0.0 | Ejecución exitosa de pipeline modular completo y reestructuración de gobernanza. | Napo |
@@ -292,7 +293,5 @@ Aunque este proyecto es un _showcase_ aplicado a People Analytics, mi trayectori
 > **— Construido por Jesús "Napo" Villegas**
 
 <div align="center">
-
 [⬆️ Volver al inicio](#-enterprise-hr-analytics-dashboard--gdh-analytics)
-
 </div>
