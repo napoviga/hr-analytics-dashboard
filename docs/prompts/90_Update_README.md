@@ -40,7 +40,7 @@ Copia la estructura siguiente. Las secciones con `{...}` se generan leyendo las 
 > **Gestión del Desarrollo Humano** | Plataforma Analítica Enterprise de RRHH
 >
 > **Última actualización:** {fecha actual YYYY-MM-DD HH:mm:ss UTC}
-> **Versión del proyecto:** v{de package.json}
+> **Versión del proyecto:** v 2.0.0
 > **Estado:** 🟡 En desarrollo activo
 
 ---
@@ -121,12 +121,6 @@ Copia la estructura siguiente. Las secciones con `{...}` se generan leyendo las 
 
 ---
 
-## 🏆 Calidad del Código
-
-{Score y hallazgos de audit_report.md}
-
----
-
 ## 📚 Documentación
 
 {Tabla de 3 pilares con links}
@@ -151,7 +145,7 @@ Este proyecto es de código abierto bajo la Licencia MIT.
 
 ## 👨‍💻 Sobre el Desarrollador
 
-**Jesús Napoleón "Napo" Villegas Gálvez**
+**Jesús Napoleón Villegas Gálvez**
 Data & Analytics Specialist | Transversal Analytics (People, Finance, Manufacturing) | Power BI | Python | SAP ERP (FI, CO, PP, MM, HCM)
 
 Profesional híbrido especializado en traducir operaciones de negocio complejas en arquitecturas de datos escalables. Con formación en gestión corporativa y actualmente cursando una Maestría en Data Analytics & Inteligencia Artificial (ESAN), diseño soluciones integrales (Data Mesh, ETL, predicción ML) que impactan directamente en la rentabilidad de las empresas.
@@ -160,22 +154,9 @@ Aunque este proyecto es un _showcase_ aplicado a People Analytics, mi trayectori
 
 - 📍 **Ubicación:** Lima, Perú
 - 💼 **Rol Actual:** Especialista de Datos Corporativo en SMI (Grupo Intercorp)
-- ✉️ **Contacto:** jesus.villegas@outlook.com
+- ✉️ **Contacto:** [EMAIL_ADDRESS]
 - 🔗 **LinkedIn:** [jesusvillegasg](https://www.linkedin.com/in/jesusvillegasg/)
 - 🛠️ **Stack Técnico:** Python, SQL, React, Power BI, GCP, Supabase, automatización RPA y SAP.
-
----
-
-> ⚠️ INSTRUCCIÓN PARA EL AGENTE: Copia la siguiente sección literalmente. NO incluyas esta instrucción en el README de salida.
-
-## 📞 Soporte
-
-| Canal                      | Enlace                                        |
-| -------------------------- | --------------------------------------------- |
-| **Issues**                 | `<repository-url>/issues`                     |
-| **Discusiones**            | `<repository-url>/discussions`                |
-| **Documentación Completa** | Carpeta `docs/` (3 pilares, 8+ documentos)    |
-| **Supabase Dashboard**     | https://app.supabase.com/project/YOUR_PROJECT |
 
 ---
 
